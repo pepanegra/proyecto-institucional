@@ -1,0 +1,38 @@
+# Dependencias
+node_modules/
+package-lock.json
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Archivos de datos sensibles
+data/users.json
+data/*.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Archivos subidos
+uploads/news/*
+uploads/gallery/*
+!uploads/news/.gitkeep
+!uploads/gallery/.gitkeep
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporales
+tmp/
+temp/

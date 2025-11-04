@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Académico - Instituto Técnico Industrial Manuel Elkin Patarroyo</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/jpeg" href="../src/logo.jpeg">
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <style>
+    .academic-hero {
+      background: linear-gradient(rgba(0,51,102,0.9), rgba(0,51,102,0.9)), 
+                  url('../src/galeria3.jpg') no-repeat center center/cover;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+    }
+    
+    .academic-hero h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .academic-hero p {
+      font-size: clamp(18px, 3vw, 22px);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .levels-section {
+      padding: 80px 20px;
+      background: linear-gradient(to bottom, #f9f9f9, white);
+    }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+      margin-top: 50px;
+    }
+    
+    .level-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    
+    .level-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #003366, #FFD700);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .level-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,51,102,0.2);
+    }
+
+    .level-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .level-header {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .level-header::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 50%;
+    }
+    
+    .level-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 215, 0, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      border: 3px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .level-header h3 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    
+    .level-grades {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    
+    .level-content {
+      padding: 35px;
+    }
+    
+    .level-content h4 {
+      color: #003366;
+      margin-bottom: 20px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .level-content h4::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: #FFD700;
+      border-radius: 2px;
+    }
+    
+    .level-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .level-content li {
+      padding: 14px 0;
+      padding-left: 35px;
+      position: relative;
+      color: #555;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+
+    .level-content li:hover {
+      color: #003366;
+      padding-left: 40px;
+    }
+    
+    .level-content li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .programs-section {
+      background: white;
+      padding: 80px 20px;
+    }
+
+    .program-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .program-tab {
+      padding: 12px 28px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      color: #666;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+
+    .program-tab:hover {
+      border-color: #003366;
+      color: #003366;
+      transform: translateY(-2px);
+    }
+
+    .program-tab.active {
+      background: linear-gradient(135deg, #003366, #004d99);
+      color: white;
+      border-color: #003366;
+      box-shadow: 0 4px 12px rgba(0,51,102,0.3);
+    }
+
+    .program-content {
+      display: none;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .program-content.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .program-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 30px;
+      align-items: start;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .program-card:hover {
+      border-color: #FFD700;
+      box-shadow: 0 8px 30px rgba(0,51,102,0.15);
+      transform: translateX(5px);
+    }
+    
+    .program-icon {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      color: white;
+      width: 90px;
+      height: 90px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .program-icon::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 215, 0, 0.2);
+      border-radius: 50%;
+    }
+    
+    .program-info h3 {
+      color: #003366;
+      margin-bottom: 15px;
+      font-size: 26px;
+      font-weight: 700;
+    }
+    
+    .program-info p {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    
+    .program-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .feature-tag {
+      background: linear-gradient(135deg, #e8f4f8, #d4e8f0);
+      color: #003366;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid rgba(0, 51, 102, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .feature-tag:hover {
+      background: #003366;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,51,102,0.2);
+    }
+
+    .facilities-section {
+      background: linear-gradient(to bottom, #f9f9f9, white);
+      padding: 80px 20px;
+    }
+
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .facility-card {
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    .facility-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,51,102,0.15);
+    }
+
+    .facility-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .facility-card h4 {
+      color: #003366;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .facility-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .schedule-section {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .schedule-table {
+      width: 100%;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      margin-top: 40px;
+    }
+    
+    .schedule-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .schedule-table th {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      color: white;
+      padding: 20px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+    
+    .schedule-table td {
+      padding: 20px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .schedule-table td:first-child {
+      font-weight: 600;
+      color: #003366;
+    }
+    
+    .schedule-table tr:hover {
+      background: #f9f9f9;
+    }
+
+    .schedule-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .cta-section {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,215,0,0.1), transparent);
+      border-radius: 50%;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(32px, 5vw, 42px);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      margin-bottom: 40px;
+      opacity: 0.95;
+      position: relative;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .cta-buttons .btn {
+      padding: 16px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .cta-buttons .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    
+    @media (max-width: 768px) {
+      .program-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 30px 25px;
+      }
+      
+      .program-icon {
+        margin: 0 auto 20px;
+      }
+
+      .levels-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .facilities-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .schedule-table {
+        overflow-x: auto;
+      }
+
+      .program-tabs {
+        gap: 10px;
+      }
+
+      .program-tab {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <img src="../src/logo.jpeg" alt="Logo del Instituto">
+        <h1>Instituto Técnico Industrial Manuel Elkin Patarroyo</h1>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="../index.html">Inicio</a>
+        <a href="sobrenosotros.html">Institución</a>
+        <a href="noticias.html">Noticias</a>
+        <a href="academico.html">Académico</a>
+        <a href="galeria.html">Galería</a>
+        <a href="contactanos.html">Contacto</a>
+      </nav>
+
+      <button id="menu-btn" class="menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <box-icon name='menu' color='white'></box-icon>
+      </button>
+    </div>
+
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Navegación móvil">
+      <a href="../index.html">Inicio</a>
+      <a href="sobrenosotros.html">Institución</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="academico.html">Académico</a>
+      <a href="galeria.html">Galería</a>
+      <a href="contactanos.html">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="academic-hero">
+    <div class="container">
+      <h2>Excelencia Académica</h2>
+      <p>
+        Programas educativos innovadores que preparan a nuestros estudiantes 
+        para los desafíos del siglo XXI
+      </p>
+    </div>
+  </section>
+
+  <!-- NIVELES EDUCATIVOS -->
+  <section class="levels-section">
+    <div class="container">
+      <h2 class="section-title">📚 Niveles Educativos</h2>
+      <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto 20px;">
+        Formación integral desde los primeros años hasta la preparación técnica profesional
+      </p>
+
+      <div class="levels-grid">
+        <!-- Primaria -->
+        <div class="level-card">
+          <div class="level-header">
+            <div class="level-icon-wrapper">
+              <box-icon name='book' color='white' size='40px'></box-icon>
+            </div>
+            <h3>Primaria</h3>
+            <p class="level-grades">Grados 1° a 5°</p>
+          </div>
+          <div class="level-content">
+            <h4>Formación Básica Integral</h4>
+            <ul>
+              <li>Desarrollo de competencias en lectura, escritura y matemáticas</li>
+              <li>Énfasis en valores y formación ciudadana</li>
+              <li>Actividades lúdicas y deportivas</li>
+              <li>Introducción a la tecnología e informática</li>
+              <li>Fortalecimiento del pensamiento crítico</li>
+              <li>Educación artística y cultural</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Secundaria -->
+        <div class="level-card">
+          <div class="level-header">
+            <div class="level-icon-wrapper">
+              <box-icon name='book-reader' color='white' size='40px'></box-icon>
+            </div>
+            <h3>Secundaria</h3>
+            <p class="level-grades">Grados 6° a 9°</p>
+          </div>
+          <div class="level-content">
+            <h4>Desarrollo Académico y Personal</h4>
+            <ul>
+              <li>Profundización en ciencias naturales y sociales</li>
+              <li>Fortalecimiento en matemáticas e idiomas</li>
+              <li>Introducción a la educación técnica</li>
+              <li>Proyectos de investigación escolar</li>
+              <li>Desarrollo de habilidades sociales</li>
+              <li>Orientación vocacional temprana</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bachillerato Técnico -->
+        <div class="level-card">
+          <div class="level-header">
+            <div class="level-icon-wrapper">
+              <box-icon name='briefcase' color='white' size='40px'></box-icon>
+            </div>
+            <h3>Bachillerato Técnico</h3>
+            <p class="level-grades">Grados 10° y 11°</p>
+          </div>
+          <div class="level-content">
+            <h4>Especialización Técnica Profesional</h4>
+            <ul>
+              <li>Formación especializada en áreas técnicas</li>
+              <li>Preparación intensiva para pruebas Saber 11</li>
+              <li>Prácticas empresariales supervisadas</li>
+              <li>Certificación técnica laboral</li>
+              <li>Articulación con instituciones de educación superior</li>
+              <li>Desarrollo de proyectos técnicos reales</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMAS TÉCNICOS -->
+  <section class="programs-section">
+    <div class="container">
+      <h2 class="section-title">🔧 Especialidades Técnicas</h2>
+      <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto 30px;">
+        Programas técnicos diseñados para preparar profesionales competentes y competitivos
+      </p>
+
+      <div class="program-tabs">
+        <button class="program-tab active" data-program="sistemas">Sistemas</button>
+        <button class="program-tab" data-program="electricidad">Electricidad</button>
+        <button class="program-tab" data-program="mecanica">Mecánica</button>
+        <button class="program-tab" data-program="administracion">Administración</button>
+      </div>
+
+      <!-- Sistemas -->
+      <div class="program-content active" id="sistemas">
+        <div class="program-card">
+          <div class="program-icon">
+            <box-icon name='chip' color='white' size='45px'></box-icon>
+          </div>
+          <div class="program-info">
+            <h3>Sistemas e Informática</h3>
+            <p>
+              Formación completa en tecnologías de la información y comunicación. Nuestros estudiantes 
+              desarrollan habilidades en programación, desarrollo web, bases de datos, redes de computadores 
+              y mantenimiento de equipos. Aprenden lenguajes como Python, JavaScript, HTML/CSS y trabajan 
+              con herramientas profesionales de la industria.
+            </p>
+            <p>
+              <strong>Salidas laborales:</strong> Desarrollador de software, técnico en redes, soporte técnico, 
+              administrador de bases de datos, diseñador web.
+            </p>
+            <div class="program-features">
+              <span class="feature-tag">💻 Programación</span>
+              <span class="feature-tag">🌐 Desarrollo Web</span>
+              <span class="feature-tag">🗄️ Bases de Datos</span>
+              <span class="feature-tag">🔗 Redes</span>
+              <span class="feature-tag">🛠️ Mantenimiento</span>
+              <span class="feature-tag">☁️ Cloud Computing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Electricidad -->
+      <div class="program-content" id="electricidad">
+        <div class="program-card">
+          <div class="program-icon">
+            <box-icon name='bolt' color='white' size='45px'></box-icon>
+          </div>
+          <div class="program-info">
+            <h3>Electricidad y Electrónica</h3>
+            <p>
+              Capacitación integral en instalaciones eléctricas residenciales, comerciales e industriales. 
+              Los estudiantes aprenden diseño de circuitos electrónicos, automatización industrial, control 
+              de procesos y sistemas de energías renovables. Incluye prácticas en laboratorios equipados con 
+              tecnología de última generación.
+            </p>
+            <p>
+              <strong>Salidas laborales:</strong> Electricista industrial, técnico en automatización, 
+              instalador de sistemas solares, técnico en mantenimiento eléctrico.
+            </p>
+            <div class="program-features">
+              <span class="feature-tag">⚡ Instalaciones Eléctricas</span>
+              <span class="feature-tag">🤖 Automatización</span>
+              <span class="feature-tag">🔌 Circuitos Electrónicos</span>
+              <span class="feature-tag">🏭 Control Industrial</span>
+              <span class="feature-tag">☀️ Energía Solar</span>
+              <span class="feature-tag">📊 Instrumentación</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mecánica -->
+      <div class="program-content" id="mecanica">
+        <div class="program-card">
+          <div class="program-icon">
+            <box-icon name='cog' color='white' size='45px'></box-icon>
+          </div>
+          <div class="program-info">
+            <h3>Mecánica Industrial</h3>
+            <p>
+              Formación en procesos de manufactura, mantenimiento preventivo y correctivo de maquinaria, 
+              metrología dimensional, lectura e interpretación de planos técnicos. Los estudiantes desarrollan 
+              competencias en el uso de máquinas-herramienta (torno, fresadora), soldadura (MIG, TIG, arco), 
+              y técnicas de ajuste mecánico.
+            </p>
+            <p>
+              <strong>Salidas laborales:</strong> Técnico mecánico industrial, operador de máquinas-herramienta, 
+              soldador certificado, inspector de calidad, técnico en mantenimiento.
+            </p>
+            <div class="program-features">
+              <span class="feature-tag">🔧 Manufactura</span>
+              <span class="feature-tag">⚙️ Mantenimiento</span>
+              <span class="feature-tag">📐 Metrología</span>
+              <span class="feature-tag">🔥 Soldadura</span>
+              <span class="feature-tag">🛠️ Máquinas-Herramienta</span>
+              <span class="feature-tag">📋 Control de Calidad</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Administración -->
+      <div class="program-content" id="administracion">
+        <div class="program-card">
+          <div class="program-icon">
+            <box-icon name='line-chart' color='white' size='45px'></box-icon>
+          </div>
+          <div class="program-info">
+            <h3>Administración y Contabilidad</h3>
+            <p>
+              Desarrollo de competencias empresariales en gestión administrativa, contabilidad financiera, 
+              análisis de costos, servicio al cliente y emprendimiento. Los estudiantes aprenden manejo de 
+              software contable, elaboración de estados financieros, nómina, impuestos y estrategias de 
+              mercadeo. Se fomenta la mentalidad emprendedora y el liderazgo empresarial.
+            </p>
+            <p>
+              <strong>Salidas laborales:</strong> Auxiliar contable, asistente administrativo, emprendedor, 
+              auxiliar de recursos humanos, asesor comercial.
+            </p>
+            <div class="program-features">
+              <span class="feature-tag">💼 Contabilidad</span>
+              <span class="feature-tag">💰 Finanzas</span>
+              <span class="feature-tag">🚀 Emprendimiento</span>
+              <span class="feature-tag">📊 Gestión Empresarial</span>
+              <span class="feature-tag">👥 Recursos Humanos</span>
+              <span class="feature-tag">📈 Marketing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALACIONES -->
+  <section class="facilities-section">
+    <div class="container">
+      <h2 class="section-title">🏫 Nuestras Instalaciones</h2>
+      <div class="facilities-grid">
+        <div class="facility-card">
+          <div class="facility-icon">
+            <box-icon name='desktop' color='white' size='36px'></box-icon>
+          </div>
+          <h4>Laboratorios de Cómputo</h4>
+          <p>3 laboratorios equipados con computadores de última generación y software especializado</p>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-icon">
+            <box-icon name='wrench' color='white' size='36px'></box-icon>
+          </div>
+          <h4>Talleres Especializados</h4>
+          <p>Talleres de electricidad, electrónica, mecánica y soldadura completamente equipados</p>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-icon">
+            <box-icon name='book-open' color='white' size='36px'></box-icon>
+          </div>
+          <h4>Biblioteca</h4>
+          <p>Amplia colección de libros técnicos, científicos y literarios, más recursos digitales</p>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-icon">
+            <box-icon name='test-tube' color='white' size='36px'></box-icon>
+          </div>
+          <h4>Laboratorios de Ciencias</h4>
+          <p>Laboratorios de física, química y biología para experimentación práctica</p>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-icon">
+            <box-icon name='football' color='white' size='36px'></box-icon>
+          </div>
+          <h4>Zonas Deportivas</h4>
+          <p>Canchas múltiples, coliseo cubierto y espacios para actividades deportivas</p>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-icon">
+            <box-icon name='wifi' color='white' size='36px'></box-icon>
+          </div>
+          <h4>Conectividad</h4>
+          <p>Internet de alta velocidad en todas las instalaciones del instituto</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORARIOS -->
+  <section class="schedule-section">
+    <div class="container">
+      <h2 class="section-title">🕐 Horarios Académicos</h2>
+      <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto 20px;">
+        Organizamos nuestro tiempo para maximizar el aprendizaje y desarrollo de nuestros estudiantes
+      </p>
+      <div class="schedule-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Nivel</th>
+              <th>Jornada</th>
+              <th>Horario</th>
+              <th>Días</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primaria</td>
+              <td>Mañana</td>
+              <td>6:45 AM - 12:30 PM</td>
+              <td>Lunes a Viernes</td>
+            </tr>
+            <tr>
+              <td>Secundaria</td>
+              <td>Mañana</td>
+              <td>6:45 PM - 1:30 PM</td>
+              <td>Lunes a Viernes</td>
+            </tr>
+            <tr>
+              <td>Bachillerato Técnico (10°-11°)</td>
+              <td>Completa</td>
+              <td>7:00 AM - 3:00 PM</td>
+              <td>Lunes a Viernes</td>
+            </tr>
+            <tr>
+              
+            </tr>
+            <tr>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>¿Listo para Formar Parte de Nuestra Familia?</h2>
+      <p>
+        Inscribe a tu hijo(a) en una institución comprometida con la excelencia educativa 
+        y la formación técnica de calidad
+      </p>
+      <div class="cta-buttons">
+        <a href="../index.html#inscripciones" class="btn btn-yellow">
+          Iniciar Inscripción
+        </a>
+        <a href="contactanos.html" class="btn btn-white">
+          Solicitar Información
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Instituto Técnico Industrial Manuel Elkin Patarroyo. Todos los derechos reservados.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><box-icon name='facebook' type='logo' color='white'></box-icon></a>
+        <a href="#" aria-label="Instagram"><box-icon name='instagram' type='logo' color='white'></box-icon></a>
+        <a href="#" aria-label="YouTube"><box-icon name='youtube' type='logo' color='white'></box-icon></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Menú móvil
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', isOpen);
+      const icon = menuBtn.querySelector('box-icon');
+      icon.setAttribute('name', isOpen ? 'x' : 'menu');
+    });
+
+    // Tabs de programas
+    const programTabs = document.querySelectorAll('.program-tab');
+    const programContents = document.querySelectorAll('.program-content');
+
+    programTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const program = tab.dataset.program;
+        
+        // Remover active de todos
+        programTabs.forEach(t => t.classList.remove('active'));
+        programContents.forEach(c => c.classList.remove('active'));
+        
+        // Activar el seleccionado
+        tab.classList.add('active');
+        document.getElementById(program).classList.add('active');
+      });
+    });
+
+    // Animación de entrada para cards
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.level-card, .facility-card, .program-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

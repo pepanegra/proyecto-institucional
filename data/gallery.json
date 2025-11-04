@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1762113795260",
+    "title": "semana cultural",
+    "description": "Este evento fu gracias a la fundacion ppp gracias por su apoyo",
+    "image": "/uploads/gallery/1762113795128-449042718.jpg",
+    "date": "2025-11-02T20:03:15.260Z",
+    "uploadedBy": "cristian latorre"
+  },
+  {
+    "id": "1762204143499",
+    "title": "semana cultural",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi aperiam ea praesentium sequi nihil voluptatem, explicabo quam natus qui, impedit beatae optio commodi tempore nulla cumque, inventore officia cum excepturi.",
+    "image": "/uploads/gallery/1762204143273-374302489.jpg",
+    "date": "2025-11-03T21:09:03.499Z",
+    "uploadedBy": "cristian latorre"
+  },
+  {
+    "id": "1762205984720",
+    "title": "semana cultural",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi aperiam ea praesentium sequi nihil voluptatem, explicabo quam natus qui, impedit beatae optio commodi tempore nulla cumque, inventore officia cum excepturi.",
+    "category": "graduacion",
+    "image": "/uploads/gallery/1762205984611-352182308.jpg",
+    "date": "2025-11-03T21:39:44.720Z",
+    "uploadedBy": "cristian latorre"
+  }
+]

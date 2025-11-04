@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Instituto Técnico Industrial Manuel Elkin Patarroyo - Formando líderes con valores y excelencia académica">
+  <title>Instituto Técnico Industrial Manuel Elkin Patarroyo</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="src/logo.jpeg">
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR DE REDES SOCIALES -->
+  <div class="social-sidebar">
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-facebook" data-label="Facebook" aria-label="Facebook">
+      <box-icon type='logo' name='facebook' color='white' size='28px'></box-icon>
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-instagram" data-label="Instagram" aria-label="Instagram">
+      <box-icon type='logo' name='instagram' color='white' size='28px'></box-icon>
+    </a>
+    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-youtube" data-label="YouTube" aria-label="YouTube">
+      <box-icon type='logo' name='youtube' color='white' size='28px'></box-icon>
+    </a>
+    <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" class="social-whatsapp" data-label="WhatsApp" aria-label="WhatsApp">
+      <box-icon type='logo' name='whatsapp' color='white' size='28px'></box-icon>
+    </a>
+    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-twitter" data-label="Twitter/X" aria-label="Twitter">
+      <box-icon type='logo' name='twitter' color='white' size='28px'></box-icon>
+    </a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-container">
+      <!-- Logo -->
+      <div class="logo">
+        <img src="src/logo.jpeg" alt="Logo del Instituto">
+        <h1>Instituto Técnico Industrial Manuel Elkin Patarroyo</h1>
+      </div>
+
+      <!-- Menú principal -->
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="paginas_secundarias/sobrenosotros.html">Institución</a>
+        <a href="paginas_secundarias/noticias.html">Noticias</a>
+        <a href="paginas_secundarias/academico.html">Académico</a>
+        <a href="paginas_secundarias/galeria.html">Galería</a>
+        <a href="paginas_secundarias/contactanos.html">Contacto</a>
+      </nav>
+
+      <!-- Botón menú móvil -->
+      <button id="menu-btn" class="menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <box-icon name='menu' color='white'></box-icon>
+      </button>
+    </div>
+
+    <!-- Menú móvil desplegable -->
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Navegación móvil">
+      <a href="index.html">Inicio</a>
+      <a href="paginas_secundarias/sobrenosotros.html">Institución</a>
+      <a href="paginas_secundarias/noticias.html">Noticias</a>
+      <a href="paginas_secundarias/academico.html">Académico</a>
+      <a href="paginas_secundarias/galeria.html">Galería</a>
+      <a href="paginas_secundarias/contactanos.html">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- BANNER PRINCIPAL -->
+  <section id="inicio" class="banner">
+    <div class="banner-content">
+      <h2>Bienvenidos al Instituto Técnico Industrial Manuel Elkin Patarroyo</h2>
+      <p>Formando líderes con valores y excelencia académica</p>
+      <div class="banner-buttons">
+        <a href="#inscripciones" class="btn btn-yellow">Inscripciones</a>
+        <a href="https://mapasa.com.co/liceocasa/" class="btn btn-white" target="_blank" rel="noopener noreferrer">Plataforma Virtual</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTICIAS Y EVENTOS -->
+  <section id="noticias" class="section bg-light">
+    <div class="container">
+      <h3 class="section-title">Noticias y Eventos</h3>
+      <div id="news-container" class="news-grid">
+        <!-- Las noticias se cargarán dinámicamente -->
+        <div class="loading">Cargando noticias...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACADÉMICO -->
+  <section id="academico" class="section">
+    <div class="container">
+      <h3 class="section-title">Área Académica</h3>
+      <div class="cards-grid">
+        <article class="card">
+          <h4>Primaria</h4>
+          <p>Formación básica integral con énfasis en valores y competencias.</p>
+        </article>
+        <article class="card">
+          <h4>Secundaria</h4>
+          <p>Educación orientada al desarrollo académico y personal.</p>
+        </article>
+        <article class="card">
+          <h4>Bachillerato</h4>
+          <p>Preparación para la educación superior y el mundo laboral.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section id="galeria" class="section bg-light">
+    <div class="container">
+      <h3 class="section-title">Galería</h3>
+      <div class="gallery-grid">
+        <img src="src/galeria1.jpg" alt="Estudiantes en actividad académica" loading="lazy">
+        <img src="src/galeria2.jpg" alt="Instalaciones del instituto" loading="lazy">
+        <img src="src/galeria3.jpg" alt="Evento estudiantil" loading="lazy">
+        <img src="src/galeria4.jpg" alt="Laboratorio de tecnología" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ALIADOS -->
+  <section id="aliados" class="section bg-light">
+    <div class="container">
+      <h3 class="section-title">Nuestros Aliados Estratégicos</h3>
+      <p style="text-align: center; color: #666; margin-bottom: 40px;">
+        Trabajamos con instituciones líderes para ofrecer la mejor formación
+      </p>
+      <div class="partners-grid">
+        <div class="partner-card">
+          <div class="partner-logo">
+            <box-icon name='building' color='#003366' size='48px'></box-icon>
+          </div>
+          <h4>SENA</h4>
+          <p>Servicio Nacional de Aprendizaje</p>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-logo">
+            <box-icon name='book-alt' color='#003366' size='48px'></box-icon>
+          </div>
+          <h4>Universidad del Valle</h4>
+          <p>Convenio de Articulación</p>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-logo">
+            <box-icon name='graduation' color='#003366' size='48px'></box-icon>
+          </div>
+          <h4>Universidad Autónoma</h4>
+          <p>Programas Técnicos</p>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-logo">
+            <box-icon name='briefcase' color='#003366' size='48px'></box-icon>
+          </div>
+          <h4>Cámara de Comercio</h4>
+          <p>Emprendimiento y Empresa</p>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-logo">
+            <box-icon name='chip' color='#003366' size='48px'></box-icon>
+          </div>
+          <h4>Microsoft</h4>
+          <p>Tecnología Educativa</p>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-logo">
+            <box-icon name='atom' color='#003366' size='48px'></box-icon>
+          </div>
+          <h4>Colciencias</h4>
+          <p>Investigación Científica</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section id="ubicacion" class="section">
+    <div class="container">
+      <h3 class="section-title">Nuestra Ubicación</h3>
+      <div class="location-content">
+        <div class="location-info">
+          <div class="info-card">
+            <box-icon name='map' color='#003366' size='32px'></box-icon>
+            <div>
+              <h4>Dirección</h4>
+              <p>Calle 123 #45-67<br>Cali, Valle del Cauca<br>Colombia</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <box-icon name='phone' color='#003366' size='32px'></box-icon>
+            <div>
+              <h4>Teléfonos</h4>
+              <p>Principal: (602) 123 4567<br>Celular: +57 304 524 8390</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <box-icon name='envelope' color='#003366' size='32px'></box-icon>
+            <div>
+              <h4>Email</h4>
+              <p> fundamepatarroyo@gmail.com<br>itimep2020@gmail.com</p>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <box-icon name='time' color='#003366' size='32px'></box-icon>
+            <div>
+              <h4>Horario</h4>
+              <p>Lunes a Viernes: 7:00 AM - 3:00 PM</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="location-map">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.94!2d-76.4679717!3d3.4113799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a74fd7ae84e9%3A0x4e4a777183778dea!2sColegio%20Manuel%20Elkin%20Patarroyo%20Cali!5e0!3m2!1ses!2sco!4v0000000000000"
+            width="70%" 
+            height="100%" 
+            style="border:0; border-radius: 12px;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section bg-light">
+    <div class="container">
+      <h3 class="section-title">Contáctanos</h3>
+      <form class="contact-form" id="contact-form">
+        <label for="nombre" class="sr-only">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
+        
+        <label for="correo" class="sr-only">Correo electrónico</label>
+        <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+        
+        <label for="mensaje" class="sr-only">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+        
+        <button type="submit">Enviar Mensaje</button>
+      </form>
+      <div id="form-message" class="form-message"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Instituto Técnico Industrial Manuel Elkin Patarroyo. Todos los derechos reservados.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><box-icon name='facebook' type='logo' color='white'></box-icon></a>
+        <a href="#" aria-label="Instagram"><box-icon name='instagram' type='logo' color='white'></box-icon></a>
+        <a href="#" aria-label="YouTube"><box-icon name='youtube' type='logo' color='white'></box-icon></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

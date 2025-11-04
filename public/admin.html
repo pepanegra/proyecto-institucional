@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - Instituto</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Login */
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .login-container h1 {
+      color: #003366;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #003366 0%, #004080 100%);
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Navegación de pestañas */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .tab-btn {
+      padding: 12px 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      color: #003366;
+      border-bottom-color: #FFD700;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Formularios */
+    .form-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .form-section h2 {
+      color: #003366;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="url"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #003366;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      cursor: pointer;
+    }
+
+    .image-preview {
+      margin-top: 10px;
+      max-width: 300px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .image-preview.show {
+      display: block;
+    }
+
+    /* Botones */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: #003366;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #004080;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #c82333;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Grid de items */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .item-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .item-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .item-card-content {
+      padding: 20px;
+    }
+
+    .item-card h3 {
+      color: #003366;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .item-card p {
+      color: #666;
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .item-card .date {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 15px;
+    }
+
+    .item-card .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .item-card .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      flex: 1;
+    }
+
+    /* Mensajes */
+    .message {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .message.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #003366;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .gallery-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card-small {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card-small:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-color: #003366;
+    }
+
+    .stat-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #003366;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .filter-tab {
+      padding: 8px 18px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      color: #666;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab:hover {
+      border-color: #003366;
+      color: #003366;
+    }
+
+    .filter-tab.active {
+      background: #003366;
+      color: white;
+      border-color: #003366;
+    }
+
+    .category-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e8f4f8;
+      color: #003366;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #003366;
+    }
+
+    .bulk-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #fff3cd;
+      border-radius: 8px;
+      align-items: center;
+    }
+
+    .bulk-actions button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-tabs {
+        justify-content: center;
+      }
+
+      .gallery-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <div id="loginSection" class="login-container">
+    <h1>🔐 Iniciar Sesión</h1>
+    <div id="loginMessage" class="message"></div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="loginUsername">Usuario</label>
+        <input type="text" id="loginUsername" required>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Ingresar</button>
+    </form>
+  </div>
+
+  <!-- Panel Principal -->
+  <div id="adminPanel" class="hidden">
+    <header>
+      <div class="container">
+        <h1>📊 Panel de Administración</h1>
+        <div class="user-info">
+          <span id="username">Usuario</span>
+          <button id="logoutBtn" class="btn btn-secondary">Cerrar Sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Pestañas -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="news">📰 Noticias</button>
+        <button class="tab-btn" data-tab="gallery">🖼️ Galería</button>
+      </div>
+
+      <!-- Tab de Noticias -->
+      <div id="newsTab" class="tab-content active">
+        <div class="form-section">
+          <h2>Crear Nueva Noticia</h2>
+          <div id="newsMessage" class="message"></div>
+          <form id="newsForm">
+            <div class="form-group">
+              <label for="newsTitle">Título *</label>
+              <input type="text" id="newsTitle" required>
+            </div>
+            <div class="form-group">
+              <label for="newsDescription">Descripción *</label>
+              <textarea id="newsDescription" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="newsLink">Enlace (opcional)</label>
+              <input type="url" id="newsLink" placeholder="https://...">
+            </div>
+            <div class="form-group">
+              <label for="newsImage">Imagen (opcional)</label>
+              <input type="file" id="newsImage" accept="image/*">
+              <img id="newsImagePreview" class="image-preview" alt="Vista previa">
+            </div>
+            <button type="submit" class="btn btn-primary">Publicar Noticia</button>
+          </form>
+        </div>
+
+        <div class="form-section">
+          <h2>Noticias Publicadas</h2>
+          <div id="newsLoading" class="loading">
+            <div class="spinner"></div>
+            <p>Cargando noticias...</p>
+          </div>
+          <div id="newsList" class="items-grid"></div>
+        </div>
+      </div>
+
+      <!-- Tab de Galería -->
+      <div id="galleryTab" class="tab-content">
+        <div class="form-section">
+          <h2>📸 Subir Foto a Galería</h2>
+          <div id="galleryMessage" class="message"></div>
+          <form id="galleryForm">
+            <div class="form-group">
+              <label for="galleryTitle">Título *</label>
+              <input type="text" id="galleryTitle" placeholder="Título de la foto" required>
+            </div>
+            <div class="form-group">
+              <label for="galleryDescription">Descripción</label>
+              <textarea id="galleryDescription" placeholder="Descripción breve de la foto" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="galleryCategory">Categoría *</label>
+              <select id="galleryCategory" required>
+                <option value="">Selecciona una categoría</option>
+                <option value="eventos">Eventos</option>
+                <option value="academico">Académico</option>
+                <option value="deportes">Deportes</option>
+                <option value="cultural">Cultural</option>
+                <option value="graduacion">Graduación</option>
+                <option value="talleres">Talleres</option>
+                <option value="instalaciones">Instalaciones</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="galleryImage">Imagen *</label>
+              <input type="file" id="galleryImage" accept="image/*" required>
+              <img id="galleryImagePreview" class="image-preview" alt="Vista previa">
+            </div>
+            <button type="submit" class="btn btn-primary">Subir Foto</button>
+          </form>
+        </div>
+
+        <div class="form-section">
+          <h2>🖼️ Fotos de la Galería</h2>
+          
+          <!-- Filtros y estadísticas -->
+          <div class="gallery-stats">
+            <div class="stat-card-small">
+              <span class="stat-icon">📷</span>
+              <div>
+                <div class="stat-value" id="totalPhotosCount">0</div>
+                <div class="stat-label">Total Fotos</div>
+              </div>
+            </div>
+            <div class="stat-card-small">
+              <span class="stat-icon">📁</span>
+              <div>
+                <div class="stat-value" id="categoriesCount">0</div>
+                <div class="stat-label">Categorías</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtros de categoría -->
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-category="all">Todas</button>
+            <button class="filter-tab" data-category="eventos">Eventos</button>
+            <button class="filter-tab" data-category="academico">Académico</button>
+            <button class="filter-tab" data-category="deportes">Deportes</button>
+            <button class="filter-tab" data-category="cultural">Cultural</button>
+            <button class="filter-tab" data-category="graduacion">Graduación</button>
+            <button class="filter-tab" data-category="talleres">Talleres</button>
+            <button class="filter-tab" data-category="instalaciones">Instalaciones</button>
+            <button class="filter-tab" data-category="otros">Otros</button>
+          </div>
+
+          <!-- Loading -->
+          <div id="galleryLoading" class="loading">
+            <div class="spinner"></div>
+            <p>Cargando galería...</p>
+          </div>
+
+          <!-- Lista de fotos -->
+          <div id="galleryList" class="items-grid"></div>
+          
+          <!-- Sin resultados -->
+          <div id="noGalleryResults" class="no-results" style="display: none;">
+            <p>No hay fotos en esta categoría</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+    let token = localStorage.getItem('adminToken');
+
+    // Elementos del DOM
+    const loginSection = document.getElementById('loginSection');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginForm = document.getElementById('loginForm');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Verificar autenticación al cargar
+    if (token) {
+      showAdminPanel();
+    }
+
+    // Login
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          token = data.token;
+          localStorage.setItem('adminToken', token);
+          localStorage.setItem('username', data.user.username);
+          showAdminPanel();
+        } else {
+          showMessage('loginMessage', data.error, 'error');
+        }
+      } catch (error) {
+        showMessage('loginMessage', 'Error de conexión', 'error');
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('username');
+      token = null;
+      location.reload();
+    });
+
+    function showAdminPanel() {
+      loginSection.classList.add('hidden');
+      adminPanel.classList.remove('hidden');
+      document.getElementById('username').textContent = localStorage.getItem('username');
+      loadNews();
+      loadGallery();
+    }
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab + 'Tab').classList.add('active');
+      });
+    });
+
+    // Preview de imágenes
+    document.getElementById('newsImage').addEventListener('change', (e) => {
+      previewImage(e.target, 'newsImagePreview');
+    });
+
+    document.getElementById('galleryImage').addEventListener('change', (e) => {
+      previewImage(e.target, 'galleryImagePreview');
+    });
+
+    function previewImage(input, previewId) {
+      const preview = document.getElementById(previewId);
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          preview.src = e.target.result;
+          preview.classList.add('show');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // Noticias
+    document.getElementById('newsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      console.log('📰 Intentando crear noticia...');
+      
+      const formData = new FormData();
+      formData.append('title', document.getElementById('newsTitle').value);
+      formData.append('description', document.getElementById('newsDescription').value);
+      formData.append('link', document.getElementById('newsLink').value);
+      
+      const imageFile = document.getElementById('newsImage').files[0];
+      if (imageFile) {
+        console.log('📎 Imagen seleccionada:', imageFile.name, imageFile.size, 'bytes');
+        formData.append('image', imageFile);
+      } else {
+        console.log('⚠️ No se seleccionó imagen');
+      }
+
+      // Mostrar contenido del FormData
+      console.log('📋 Datos a enviar:');
+      for (let [key, value] of formData.entries()) {
+        if (value instanceof File) {
+          console.log(`  ${key}: ${value.name} (${value.size} bytes)`);
+        } else {
+          console.log(`  ${key}: ${value}`);
+        }
+      }
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Publicando...';
+
+      try {
+        console.log('🚀 Enviando petición...');
+        const response = await fetch(`${API_URL}/news`, {
+          method: 'POST',
+          headers: { 
+            'Authorization': `Bearer ${token}`
+            // NO incluir Content-Type, fetch lo establece automáticamente para FormData
+          },
+          body: formData
+        });
+
+        console.log('📥 Respuesta recibida:', response.status, response.statusText);
+        
+        const data = await response.json();
+        console.log('📊 Datos de respuesta:', data);
+
+        if (response.ok) {
+          showMessage('newsMessage', '✅ Noticia publicada exitosamente', 'success');
+          document.getElementById('newsForm').reset();
+          document.getElementById('newsImagePreview').classList.remove('show');
+          loadNews();
+        } else {
+          console.error('❌ Error del servidor:', data);
+          showMessage('newsMessage', '❌ Error: ' + (data.error || 'Error desconocido'), 'error');
+        }
+      } catch (error) {
+        console.error('❌ Error de red:', error);
+        showMessage('newsMessage', '❌ Error de conexión: ' + error.message, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Publicar Noticia';
+      }
+    });
+
+    async function loadNews() {
+      try {
+        const response = await fetch(`${API_URL}/news`);
+        const news = await response.json();
+        
+        document.getElementById('newsLoading').classList.add('hidden');
+        const newsList = document.getElementById('newsList');
+        newsList.innerHTML = '';
+
+        news.forEach(item => {
+          const card = createNewsCard(item);
+          newsList.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error cargando noticias:', error);
+      }
+    }
+
+    function createNewsCard(item) {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      
+      const date = new Date(item.date).toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      card.innerHTML = `
+        ${item.image ? `<img src="${API_URL.replace('/api', '')}${item.image}" alt="${item.title}">` : ''}
+        <div class="item-card-content">
+          <h3>${item.title}</h3>
+          <p class="date">${date}</p>
+          <p>${item.description}</p>
+          <div class="actions">
+            <button class="btn btn-danger" onclick="deleteNews('${item.id}')">Eliminar</button>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    async function deleteNews(id) {
+      if (!confirm('¿Estás seguro de eliminar esta noticia?')) return;
+
+      try {
+        const response = await fetch(`${API_URL}/news/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+          loadNews();
+          showMessage('newsMessage', 'Noticia eliminada', 'success');
+        }
+      } catch (error) {
+        showMessage('newsMessage', 'Error al eliminar', 'error');
+      }
+    }
+
+    // Galería
+    let currentGalleryFilter = 'all';
+    let allGalleryPhotos = [];
+
+    document.getElementById('galleryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData();
+      formData.append('title', document.getElementById('galleryTitle').value);
+      formData.append('description', document.getElementById('galleryDescription').value);
+      formData.append('category', document.getElementById('galleryCategory').value);
+      formData.append('image', document.getElementById('galleryImage').files[0]);
+      formData.append('type', 'gallery');
+
+      try {
+        const response = await fetch(`${API_URL}/gallery`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formData
+        });
+
+        if (response.ok) {
+          showMessage('galleryMessage', 'Foto subida exitosamente', 'success');
+          document.getElementById('galleryForm').reset();
+          document.getElementById('galleryImagePreview').classList.remove('show');
+          loadGallery();
+        } else {
+          const data = await response.json();
+          showMessage('galleryMessage', data.error, 'error');
+        }
+      } catch (error) {
+        showMessage('galleryMessage', 'Error al subir foto', 'error');
+      }
+    });
+
+    async function loadGallery() {
+      try {
+        const response = await fetch(`${API_URL}/gallery`);
+        allGalleryPhotos = await response.json();
+        
+        // Agregar categoría por defecto si no existe
+        allGalleryPhotos = allGalleryPhotos.map(photo => ({
+          ...photo,
+          category: photo.category || 'otros'
+        }));
+        
+        document.getElementById('galleryLoading').classList.add('hidden');
+        updateGalleryStats();
+        displayGalleryPhotos();
+      } catch (error) {
+        console.error('Error cargando galería:', error);
+      }
+    }
+
+    function updateGalleryStats() {
+      const totalPhotos = allGalleryPhotos.length;
+      const categories = [...new Set(allGalleryPhotos.map(p => p.category))];
+      
+      document.getElementById('totalPhotosCount').textContent = totalPhotos;
+      document.getElementById('categoriesCount').textContent = categories.length;
+    }
+
+    function displayGalleryPhotos() {
+      const galleryList = document.getElementById('galleryList');
+      const noResults = document.getElementById('noGalleryResults');
+      
+      let filteredPhotos = allGalleryPhotos;
+      if (currentGalleryFilter !== 'all') {
+        filteredPhotos = allGalleryPhotos.filter(p => p.category === currentGalleryFilter);
+      }
+      
+      galleryList.innerHTML = '';
+      
+      if (filteredPhotos.length === 0) {
+        noResults.style.display = 'block';
+        galleryList.style.display = 'none';
+        return;
+      }
+      
+      noResults.style.display = 'none';
+      galleryList.style.display = 'grid';
+
+      filteredPhotos.forEach(item => {
+        const card = createGalleryCard(item);
+        galleryList.appendChild(card);
+      });
+    }
+
+    function createGalleryCard(item) {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      
+      const date = new Date(item.date).toLocaleDateString('es-ES');
+      
+      const categoryLabels = {
+        'eventos': 'Eventos',
+        'academico': 'Académico',
+        'deportes': 'Deportes',
+        'cultural': 'Cultural',
+        'graduacion': 'Graduación',
+        'talleres': 'Talleres',
+        'instalaciones': 'Instalaciones',
+        'otros': 'Otros'
+      };
+
+      card.innerHTML = `
+        <img src="${API_URL.replace('/api', '')}${item.image}" alt="${item.title}">
+        <div class="item-card-content">
+          <h3>${item.title}</h3>
+          <span class="category-badge">${categoryLabels[item.category] || 'Sin categoría'}</span>
+          <p class="date">${date}</p>
+          ${item.description ? `<p>${item.description}</p>` : ''}
+          <div class="actions">
+            <button class="btn btn-danger" onclick="deleteGalleryItem('${item.id}')">Eliminar</button>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    // Filtros de galería
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        currentGalleryFilter = tab.dataset.category;
+        
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        displayGalleryPhotos();
+      });
+    });
+
+    async function deleteGalleryItem(id) {
+      if (!confirm('¿Estás seguro de eliminar esta foto?')) return;
+
+      try {
+        const response = await fetch(`${API_URL}/gallery/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+          loadGallery();
+          showMessage('galleryMessage', 'Foto eliminada exitosamente', 'success');
+        } else {
+          showMessage('galleryMessage', 'Error al eliminar foto', 'error');
+        }
+      } catch (error) {
+        showMessage('galleryMessage', 'Error al eliminar', 'error');
+      }
+    }
+
+    function showMessage(elementId, message, type) {
+      const messageEl = document.getElementById(elementId);
+      messageEl.textContent = message;
+      messageEl.className = `message ${type} show`;
+      setTimeout(() => {
+        messageEl.classList.remove('show');
+      }, 5000);
+    }
+  </script>
+  <script src="../script.js"></script>
+</body>
+</html>

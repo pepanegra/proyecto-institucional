@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias - Instituto Técnico Industrial Manuel Elkin Patarroyo</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/jpeg" href="../src/logo.jpeg">
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <style>
+    .news-detail {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+    
+    .news-detail img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .news-meta {
+      display: flex;
+      gap: 20px;
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    
+    .news-content {
+      line-height: 1.8;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #003366;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .back-button:hover {
+      transform: translateX(-5px);
+    }
+    
+    .filter-section {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .search-box:focus {
+      outline: none;
+      border-color: #003366;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    
+    .pagination button {
+      padding: 10px 20px;
+      border: 2px solid #003366;
+      background: white;
+      color: #003366;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .pagination button:hover:not(:disabled) {
+      background: #003366;
+      color: white;
+    }
+    
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .pagination .active {
+      background: #003366;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <img src="../src/logo.jpeg" alt="Logo del Instituto">
+        <h1>Instituto Técnico Industrial Manuel Elkin Patarroyo</h1>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="../index.html">Inicio</a>
+        <a href="sobrenosotros.html">Institución</a>
+        <a href="noticias.html">Noticias</a>
+        <a href="academico.html">Académico</a>
+        <a href="galeria.html">Galería</a>
+        <a href="contactanos.html">Contacto</a>
+      </nav>
+
+      <button id="menu-btn" class="menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <box-icon name='menu' color='white'></box-icon>
+      </button>
+    </div>
+
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Navegación móvil">
+      <a href="../index.html">Inicio</a>
+      <a href="sobrenosotros.html">Institución</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="academico.html">Académico</a>
+      <a href="galeria.html">Galería</a>
+      <a href="contactanos.html">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">📰 Noticias y Eventos</h2>
+      
+      <!-- Filtro de búsqueda -->
+      <div class="filter-section">
+        <input 
+          type="text" 
+          id="searchBox" 
+          class="search-box" 
+          placeholder="🔍 Buscar noticias..."
+        >
+      </div>
+
+      <!-- Loading -->
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Cargando noticias...</p>
+      </div>
+
+      <!-- Lista de noticias -->
+      <div id="newsList" class="news-grid"></div>
+
+      <!-- Sin resultados -->
+      <div id="noResults" class="no-results hidden">
+        <h3>😕 No se encontraron noticias</h3>
+        <p>Intenta con otros términos de búsqueda</p>
+      </div>
+
+      <!-- Paginación -->
+      <div id="pagination" class="pagination hidden"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Instituto Técnico Industrial Manuel Elkin Patarroyo. Todos los derechos reservados.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><box-icon name='facebook' type='logo' color='white'></box-icon></a>
+        <a href="#" aria-label="Instagram"><box-icon name='instagram' type='logo' color='white'></box-icon></a>
+        <a href="#" aria-label="YouTube"><box-icon name='youtube' type='logo' color='white'></box-icon></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+    let allNews = [];
+    let filteredNews = [];
+    const itemsPerPage = 9;
+    let currentPage = 1;
+
+    // Menú móvil
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', isOpen);
+      const icon = menuBtn.querySelector('box-icon');
+      icon.setAttribute('name', isOpen ? 'x' : 'menu');
+    });
+
+    // Cargar noticias
+    async function loadNews() {
+      const loading = document.getElementById('loading');
+      const newsList = document.getElementById('newsList');
+
+      try {
+        const response = await fetch(`${API_URL}/news`);
+        
+        if (!response.ok) throw new Error('Error al cargar noticias');
+        
+        allNews = await response.json();
+        filteredNews = allNews;
+        
+        loading.classList.add('hidden');
+        displayNews();
+      } catch (error) {
+        console.error('Error:', error);
+        loading.innerHTML = '<p class="error-message">Error al cargar las noticias. Por favor, intenta más tarde.</p>';
+      }
+    }
+
+    // Mostrar noticias
+    function displayNews() {
+      const newsList = document.getElementById('newsList');
+      const noResults = document.getElementById('noResults');
+      const pagination = document.getElementById('pagination');
+      
+      newsList.innerHTML = '';
+      
+      if (filteredNews.length === 0) {
+        noResults.classList.remove('hidden');
+        pagination.classList.add('hidden');
+        return;
+      }
+      
+      noResults.classList.add('hidden');
+      
+      // Calcular paginación
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageNews = filteredNews.slice(start, end);
+      
+      // Crear cards
+      pageNews.forEach(news => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        
+        const date = new Date(news.date).toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        card.innerHTML = `
+          ${news.image ? `<img src="${API_URL.replace('/api', '')}${news.image}" alt="${news.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -30px -30px 15px -30px;">` : ''}
+          <h3>${news.title}</h3>
+          <span class="date">${date}</span>
+          <p>${news.description.substring(0, 150)}${news.description.length > 150 ? '...' : ''}</p>
+          ${news.link && news.link !== '#' ? `<a href="${news.link}" class="read-more" target="_blank">Leer más →</a>` : ''}
+        `;
+        
+        newsList.appendChild(card);
+      });
+      
+      // Mostrar paginación
+      renderPagination();
+    }
+
+    // Renderizar paginación
+    function renderPagination() {
+      const pagination = document.getElementById('pagination');
+      const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+      
+      if (totalPages <= 1) {
+        pagination.classList.add('hidden');
+        return;
+      }
+      
+      pagination.classList.remove('hidden');
+      pagination.innerHTML = '';
+      
+      // Botón anterior
+      const prevBtn = document.createElement('button');
+      prevBtn.textContent = '← Anterior';
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => {
+        currentPage--;
+        displayNews();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      pagination.appendChild(prevBtn);
+      
+      // Números de página
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.textContent = i;
+        pageBtn.className = i === currentPage ? 'active' : '';
+        pageBtn.onclick = () => {
+          currentPage = i;
+          displayNews();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        pagination.appendChild(pageBtn);
+      }
+      
+      // Botón siguiente
+      const nextBtn = document.createElement('button');
+      nextBtn.textContent = 'Siguiente →';
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => {
+        currentPage++;
+        displayNews();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      pagination.appendChild(nextBtn);
+    }
+
+    // Búsqueda
+    const searchBox = document.getElementById('searchBox');
+    let searchTimeout;
+
+    searchBox.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (query === '') {
+          filteredNews = allNews;
+        } else {
+          filteredNews = allNews.filter(news => 
+            news.title.toLowerCase().includes(query) || 
+            news.description.toLowerCase().includes(query)
+          );
+        }
+        
+        currentPage = 1;
+        displayNews();
+      }, 300);
+    });
+
+    // Cargar al iniciar
+    loadNews();
+  </script>
+
+  <script src="../script.js"></script>
+</body>
+</html>
