@@ -7,5 +7,14 @@
     "date": "2025-11-03T20:53:41.350Z",
     "image": "/uploads/news/1762203221144-360640731.jpg",
     "createdBy": "cristian latorre"
+  },
+  {
+    "id": "1762379577283",
+    "title": "prueba 1",
+    "description": "Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below and press Enter to allow pasting.",
+    "link": "#",
+    "date": "2025-11-05T21:52:57.283Z",
+    "image": "/uploads/news/1762379577282-708234093.jpg",
+    "createdBy": "cristian latorre"
   }
 ]

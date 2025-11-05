@@ -34,54 +34,113 @@ mobileMenu.querySelectorAll('a').forEach(link => {
 async function loadNews() {
   const newsContainer = document.getElementById('news-container');
   
+  // Verificar que el contenedor existe
+  if (!newsContainer) {
+    console.error('❌ Contenedor de noticias no encontrado');
+    return;
+  }
+  
   try {
+    console.log('📰 Cargando noticias desde:', `${API_URL}/news`);
+    
     // Mostrar loading
     newsContainer.innerHTML = '<div class="loading">Cargando noticias...</div>';
     
     // Obtener noticias desde el backend
     const response = await fetch(`${API_URL}/news`);
     
+    console.log('📥 Respuesta:', response.status, response.statusText);
+    
     if (!response.ok) {
-      throw new Error('Error al cargar noticias');
+      throw new Error(`Error HTTP: ${response.status}`);
     }
     
     const news = await response.json();
+    console.log('📊 Noticias recibidas:', news.length);
+    console.log('📋 Datos completos:', news);
     
     // Limpiar el contenedor
     newsContainer.innerHTML = '';
     
     // Si no hay noticias
-    if (news.length === 0) {
-      newsContainer.innerHTML = '<p class="no-data">No hay noticias disponibles en este momento.</p>';
+    if (!news || news.length === 0) {
+      newsContainer.innerHTML = '<p class="no-data" style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">No hay noticias disponibles en este momento.</p>';
       return;
     }
     
     // Mostrar solo las últimas 4 noticias
     const latestNews = news.slice(0, 4);
+    console.log('📋 Mostrando', latestNews.length, 'noticias');
     
     // Crear cards de noticias
-    latestNews.forEach(newsItem => {
-      const newsCard = document.createElement('article');
-      newsCard.className = 'card';
+    latestNews.forEach((newsItem, index) => {
+      console.log(`\n📄 Procesando noticia ${index + 1}:`);
+      console.log('  - ID:', newsItem.id);
+      console.log('  - Título:', newsItem.title);
+      console.log('  - Descripción:', newsItem.description);
+      console.log('  - Fecha:', newsItem.date);
+      console.log('  - Imagen:', newsItem.image);
+      console.log('  - Link:', newsItem.link);
       
-      const date = new Date(newsItem.date).toLocaleDateString('es-ES', {
+      // Validar que los campos existen
+      const title = newsItem.title || 'Sin título';
+      const description = newsItem.description || 'Sin descripción';
+      const link = newsItem.link || '#';
+      const image = newsItem.image || null;
+      const date = newsItem.date ? new Date(newsItem.date) : new Date();
+      
+      // Formatear fecha
+      const formattedDate = date.toLocaleDateString('es-ES', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       });
       
-      newsCard.innerHTML = `
-        ${newsItem.image ? `<img src="${API_URL.replace('/api', '')}${newsItem.image}" alt="${newsItem.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -30px -30px 15px -30px;">` : ''}
-        <h4>${newsItem.title}</h4>
-        <span class="date">${date}</span>
-        <p>${newsItem.description}</p>
-        ${newsItem.link && newsItem.link !== '#' ? `<a href="${newsItem.link}" class="read-more">Leer más →</a>` : ''}
+      console.log(`  ✅ Creando card con título: "${title}"`);
+      
+      // Crear card
+      const newsCard = document.createElement('article');
+      newsCard.className = 'card';
+      
+      // Construir HTML
+      let cardHTML = '';
+      
+      // Agregar imagen si existe
+      if (image && image !== 'null' && image !== null) {
+        const imageUrl = image.startsWith('http') 
+          ? image 
+          : `${window.location.origin}${image}`;
+        console.log('  🖼️ URL de imagen:', imageUrl);
+        cardHTML += `<img src="${imageUrl}" alt="${title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -30px -30px 15px -30px;" onerror="console.error('Error cargando imagen:', this.src); this.style.display='none';">`;
+      }
+      
+      // Agregar contenido
+      cardHTML += `
+        <h4 style="color: #003366; margin-bottom: 10px; font-size: 20px;">${title}</h4>
+        <span class="date" style="display: block; font-size: 13px; color: #777; margin-bottom: 10px;">${formattedDate}</span>
+        <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">${description}</p>
       `;
+      
+      // Agregar enlace si existe y no es '#'
+      if (link && link !== '#' && link !== 'null') {
+        cardHTML += `<a href="${link}" class="read-more" style="color: #003366; font-weight: 600; text-decoration: none;" target="_blank" rel="noopener noreferrer">Leer más →</a>`;
+      }
+      
+      newsCard.innerHTML = cardHTML;
+      
+      console.log('  📦 HTML generado:', cardHTML.substring(0, 100) + '...');
+      
       newsContainer.appendChild(newsCard);
+      console.log('  ✅ Card agregada al contenedor');
     });
+    
+    console.log('\n✅ Todas las noticias cargadas exitosamente');
+    console.log('📊 Cards en el DOM:', newsContainer.children.length);
+    
   } catch (error) {
-    console.error('Error cargando noticias:', error);
-    newsContainer.innerHTML = '<p class="error-message">Error al cargar las noticias. Por favor, intenta más tarde.</p>';
+    console.error('❌ Error cargando noticias:', error);
+    console.error('Stack:', error.stack);
+    newsContainer.innerHTML = `<p class="error-message" style="grid-column: 1/-1; text-align: center; padding: 40px; color: #dc3545;">Error al cargar las noticias: ${error.message}<br><small>Revisa la consola (F12) para más detalles</small></p>`;
   }
 }
 

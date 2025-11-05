@@ -8,6 +8,8 @@
   <link rel="icon" type="image/jpeg" href="../src/logo.jpeg">
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   <style>
+
+
     .news-detail {
       max-width: 800px;
       margin: 0 auto;
@@ -194,167 +196,224 @@
   </footer>
 
   <script>
-    const API_URL = 'http://localhost:3000/api';
-    let allNews = [];
-    let filteredNews = [];
-    const itemsPerPage = 9;
-    let currentPage = 1;
-
-    // Menú móvil
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuBtn.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('active');
-      menuBtn.setAttribute('aria-expanded', isOpen);
-      const icon = menuBtn.querySelector('box-icon');
-      icon.setAttribute('name', isOpen ? 'x' : 'menu');
-    });
-
-    // Cargar noticias
-    async function loadNews() {
-      const loading = document.getElementById('loading');
-      const newsList = document.getElementById('newsList');
-
-      try {
-        const response = await fetch(`${API_URL}/news`);
-        
-        if (!response.ok) throw new Error('Error al cargar noticias');
-        
-        allNews = await response.json();
-        filteredNews = allNews;
-        
-        loading.classList.add('hidden');
-        displayNews();
-      } catch (error) {
-        console.error('Error:', error);
-        loading.innerHTML = '<p class="error-message">Error al cargar las noticias. Por favor, intenta más tarde.</p>';
-      }
+    document.addEventListener("DOMContentLoaded", () => {
+  // tu código aquí
+  
+  
+  
+  const API_URL = 'http://localhost:3000/api';
+  let allNews = [];
+  let filteredNews = [];
+  const itemsPerPage = 9;
+  let currentPage = 1;
+  
+  // Menú móvil
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('active');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+    const icon = menuBtn.querySelector('box-icon');
+    icon.setAttribute('name', isOpen ? 'x' : 'menu');
+  });
+  
+  // Cargar noticias
+  async function loadNews() {
+    const loading = document.getElementById('loading');
+    const newsList = document.getElementById('newsList');
+    
+    try {
+      console.log('📰 Cargando noticias desde:', `${API_URL}/news`);
+      const response = await fetch(`${API_URL}/news`);
+      
+      console.log('📥 Respuesta:', response.status);
+      
+      if (!response.ok) throw new Error('Error al cargar noticias');
+      
+      allNews = await response.json();
+      console.log('📊 Total noticias:', allNews.length);
+      console.log('📋 Datos:', allNews);
+      
+      filteredNews = allNews;
+      
+      loading.classList.add('hidden');
+      displayNews();
+    } catch (error) {
+      console.error('❌ Error:', error);
+      loading.innerHTML = '<p class="error-message">Error al cargar las noticias. Por favor, intenta más tarde.</p>';
     }
-
-    // Mostrar noticias
-    function displayNews() {
-      const newsList = document.getElementById('newsList');
-      const noResults = document.getElementById('noResults');
-      const pagination = document.getElementById('pagination');
+  }
+  
+  // Mostrar noticias
+  function displayNews() {
+    const newsList = document.getElementById('newsList');
+    const noResults = document.getElementById('noResults');
+    const pagination = document.getElementById('pagination');
+    
+    console.log('🎨 Mostrando noticias...');
+    console.log('  - Noticias filtradas:', filteredNews.length);
+    
+    newsList.innerHTML = '';
+    
+    if (filteredNews.length === 0) {
+      noResults.classList.remove('hidden');
+      pagination.classList.add('hidden');
+      newsList.style.display = 'none';
+      return;
+    }
+    
+    noResults.classList.add('hidden');
+    newsList.style.display = 'grid';
+    
+    // Calcular paginación
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageNews = filteredNews.slice(start, end);
+    
+    console.log(`  - Mostrando desde ${start} hasta ${end}`);
+    console.log(`  - Total en esta página: ${pageNews.length}`);
+    
+    // Crear cards
+    pageNews.forEach((news, index) => {
+      console.log(`\n📄 Creando card ${index + 1}:`);
+      console.log('  ID:', news.id);
+      console.log('  Título:', news.title);
+      console.log('  Descripción:', news.description?.substring(0, 50) + '...');
       
-      newsList.innerHTML = '';
+      const card = document.createElement('article');
+      card.className = 'card';
       
-      if (filteredNews.length === 0) {
-        noResults.classList.remove('hidden');
-        pagination.classList.add('hidden');
-        return;
-      }
+      // Validar campos
+      const title = news.title || 'Sin título';
+      const description = news.description || 'Sin descripción';
+      const link = news.link || '#';
+      const image = news.image;
       
-      noResults.classList.add('hidden');
-      
-      // Calcular paginación
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageNews = filteredNews.slice(start, end);
-      
-      // Crear cards
-      pageNews.forEach(news => {
-        const card = document.createElement('article');
-        card.className = 'card';
-        
-        const date = new Date(news.date).toLocaleDateString('es-ES', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-        
-        card.innerHTML = `
-          ${news.image ? `<img src="${API_URL.replace('/api', '')}${news.image}" alt="${news.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -30px -30px 15px -30px;">` : ''}
-          <h3>${news.title}</h3>
-          <span class="date">${date}</span>
-          <p>${news.description.substring(0, 150)}${news.description.length > 150 ? '...' : ''}</p>
-          ${news.link && news.link !== '#' ? `<a href="${news.link}" class="read-more" target="_blank">Leer más →</a>` : ''}
-        `;
-        
-        newsList.appendChild(card);
+      const date = new Date(news.date).toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
       });
       
-      // Mostrar paginación
-      renderPagination();
-    }
-
-    // Renderizar paginación
-    function renderPagination() {
-      const pagination = document.getElementById('pagination');
-      const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+      console.log('  Fecha formateada:', date);
       
-      if (totalPages <= 1) {
-        pagination.classList.add('hidden');
-        return;
+      // Construir HTML
+      let cardHTML = '';
+      
+      // Imagen
+      if (image && image !== 'null' && image !== null) {
+        const imageUrl = image.startsWith('http') 
+        ? image 
+        : `${window.location.origin}${image}`;
+        console.log('  🖼️ Imagen:', imageUrl);
+        cardHTML += `<img src="${imageUrl}" alt="${title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0; margin: -30px -30px 15px -30px;" onerror="console.error('Error cargando:', this.src); this.style.display='none'">`;
       }
       
-      pagination.classList.remove('hidden');
-      pagination.innerHTML = '';
+      // Contenido
+      cardHTML += `
+      <h3 style="color: #003366; margin-bottom: 10px; font-size: 20px; font-weight: 600;">${title}</h3>
+      <span class="date" style="display: block; font-size: 13px; color: #777; margin-bottom: 10px; font-style: italic;">${date}</span>
+      <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">${description.length > 150 ? description.substring(0, 150) + '...' : description}</p>
+      `;
       
-      // Botón anterior
-      const prevBtn = document.createElement('button');
-      prevBtn.textContent = '← Anterior';
-      prevBtn.disabled = currentPage === 1;
-      prevBtn.onclick = () => {
-        currentPage--;
-        displayNews();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-      pagination.appendChild(prevBtn);
-      
-      // Números de página
-      for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.textContent = i;
-        pageBtn.className = i === currentPage ? 'active' : '';
-        pageBtn.onclick = () => {
-          currentPage = i;
-          displayNews();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-        pagination.appendChild(pageBtn);
+      // Link
+      if (link && link !== '#' && link !== 'null') {
+        cardHTML += `<a href="${link}" class="read-more" style="color: #003366; font-weight: 600; display: inline-block; margin-top: 10px; text-decoration: none;" target="_blank">Leer más →</a>`;
       }
       
-      // Botón siguiente
-      const nextBtn = document.createElement('button');
-      nextBtn.textContent = 'Siguiente →';
-      nextBtn.disabled = currentPage === totalPages;
-      nextBtn.onclick = () => {
-        currentPage++;
-        displayNews();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-      pagination.appendChild(nextBtn);
-    }
-
-    // Búsqueda
-    const searchBox = document.getElementById('searchBox');
-    let searchTimeout;
-
-    searchBox.addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        const query = e.target.value.toLowerCase().trim();
-        
-        if (query === '') {
-          filteredNews = allNews;
-        } else {
-          filteredNews = allNews.filter(news => 
-            news.title.toLowerCase().includes(query) || 
-            news.description.toLowerCase().includes(query)
-          );
-        }
-        
-        currentPage = 1;
-        displayNews();
-      }, 300);
+      card.innerHTML = cardHTML;
+      console.log('  ✅ Card creada');
+      
+      newsList.appendChild(card);
     });
+    
+    console.log('\n✅ Total cards en DOM:', newsList.children.length);
+    
+    // Mostrar paginación
+    renderPagination();
+  }
+  
+  // Renderizar paginación
+  function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+    
+    if (totalPages <= 1) {
+      pagination.classList.add('hidden');
+      return;
+    }
+    
+    pagination.classList.remove('hidden');
+    pagination.innerHTML = '';
+    
+    // Botón anterior
+    const prevBtn = document.createElement('button');
+    prevBtn.textContent = '← Anterior';
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = () => {
+      currentPage--;
+      displayNews();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    pagination.appendChild(prevBtn);
+    
+    // Números de página
+    for (let i = 1; i <= totalPages; i++) {
+      const pageBtn = document.createElement('button');
+      pageBtn.textContent = i;
+      pageBtn.className = i === currentPage ? 'active' : '';
+      pageBtn.onclick = () => {
+        currentPage = i;
+        displayNews();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      pagination.appendChild(pageBtn);
+    }
+    
+    // Botón siguiente
+    const nextBtn = document.createElement('button');
+    nextBtn.textContent = 'Siguiente →';
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.onclick = () => {
+      currentPage++;
+      displayNews();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    pagination.appendChild(nextBtn);
+  }
+  
+  // Búsqueda
+  const searchBox = document.getElementById('searchBox');
+  let searchTimeout;
+  
+  searchBox.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      const query = e.target.value.toLowerCase().trim();
+      
+      console.log('🔍 Buscando:', query);
+      
+      if (query === '') {
+        filteredNews = allNews;
+      } else {
+        filteredNews = allNews.filter(news => 
+        (news.title && news.title.toLowerCase().includes(query)) || 
+        (news.description && news.description.toLowerCase().includes(query))
+      );
+    }
+    
+    console.log('📊 Resultados:', filteredNews.length);
+    
+    currentPage = 1;
+    displayNews();
+  }, 300);
+});
 
-    // Cargar al iniciar
-    loadNews();
-  </script>
-
-  <script src="../script.js"></script>
+// Cargar al iniciar
+console.log('🚀 Iniciando carga de noticias...'+ loadNews);
+loadNews();
+});
+</script>
 </body>
 </html>
