@@ -9,12 +9,21 @@
     "uploadedBy": "cristian latorre"
   },
   {
-    "id": "1762377821800",
-    "title": "prueba",
-    "description": "prueba",
-    "category": "academico",
-    "image": "/uploads/gallery/1762377821775-597511081.png",
-    "date": "2025-11-05T21:23:41.800Z",
+    "id": "1762432491898",
+    "title": "prueba 3",
+    "description": "esto es un texto de prueba",
+    "category": "graduacion",
+    "image": "/uploads/gallery/1762432491819-350260407.jpg",
+    "date": "2025-11-06T12:34:51.898Z",
+    "uploadedBy": "cristian latorre"
+  },
+  {
+    "id": "1762432881772",
+    "title": "prueba #4",
+    "description": "Este es un texto de prueba",
+    "category": "deportes",
+    "image": "/uploads/gallery/1762432881670-82186596.jpg",
+    "date": "2025-11-06T12:41:21.773Z",
     "uploadedBy": "cristian latorre"
   }
 ]

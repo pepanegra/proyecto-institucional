@@ -315,6 +315,268 @@
       box-shadow: 0 4px 8px rgba(0,51,102,0.2);
     }
 
+    /* ESTILOS DEL CRONOGRAMA */
+    .cronograma-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cronograma-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+      border-radius: 50%;
+    }
+
+    .cronograma-header {
+      text-align: center;
+      color: white;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .cronograma-header h2 {
+      font-size: clamp(32px, 5vw, 42px);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .cronograma-header p {
+      font-size: 18px;
+      opacity: 0.95;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 10px;
+      background: rgba(255,255,255,0.15);
+      padding: 8px;
+      border-radius: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .view-toggle button {
+      padding: 12px 24px;
+      border: none;
+      background: transparent;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+
+    .view-toggle button.active {
+      background: white;
+      color: #667eea;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .cronograma-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cronograma-filters select {
+      padding: 12px 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.95);
+      color: #333;
+      backdrop-filter: blur(10px);
+    }
+
+    .timeline-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+       gap: 20px;
+    }
+
+    .month-section {
+      margin-bottom: 50px;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .month-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    .month-icon {
+      font-size: 2em;
+    }
+
+    .month-header h3 {
+      color: #003366;
+      font-size: 1.8em;
+      margin: 0;
+    }
+
+    .events-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    .event-card-cronograma {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border-left: 5px solid;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .event-card-cronograma:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .event-card-cronograma.academico { border-left-color: #28a745; }
+    .event-card-cronograma.vacaciones { border-left-color: #17a2b8; }
+    .event-card-cronograma.evaluacion { border-left-color: #dc3545; }
+    .event-card-cronograma.cultural { border-left-color: #ffc107; }
+    .event-card-cronograma.deportivo { border-left-color: #fd7e14; }
+    .event-card-cronograma.administrativo { border-left-color: #6c757d; }
+
+    .event-header-cronograma {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 15px;
+      gap: 15px;
+    }
+
+    .event-date-badge {
+      background: #667eea;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .event-title-cronograma {
+      color: #333;
+      font-size: 1.2em;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .event-description-cronograma {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .event-type-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .event-type-badge.academico { background: #28a745; }
+    .event-type-badge.vacaciones { background: #17a2b8; }
+    .event-type-badge.evaluacion { background: #dc3545; }
+    .event-type-badge.cultural { background: #ffc107; color: #333; }
+    .event-type-badge.deportivo { background: #fd7e14; }
+    .event-type-badge.administrativo { background: #6c757d; }
+
+    .calendar-view {
+      display: none;
+    }
+
+    .calendar-view.active {
+      display: block;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      background: #e9ecef;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .calendar-header-cell {
+      background: #003366;
+      color: white;
+      padding: 15px 5px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .calendar-day {
+      background: white;
+      min-height: 100px;
+      padding: 10px 5px;
+      position: relative;
+    }
+
+    .calendar-day.other-month {
+      background: #f8f9fa;
+      color: #999;
+    }
+
+    .day-number {
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 5px;
+    }
+
+    .day-events {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .calendar-event {
+      font-size: 10px;
+      padding: 3px 5px;
+      border-radius: 3px;
+      color: white;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .calendar-event.academico { background: #28a745; }
+    .calendar-event.vacaciones { background: #17a2b8; }
+    .calendar-event.evaluacion { background: #dc3545; }
+    .calendar-event.cultural { background: #ffc107; }
+    .calendar-event.deportivo { background: #fd7e14; }
+    .calendar-event.administrativo { background: #6c757d; }
+
     .facilities-section {
       background: linear-gradient(to bottom, #f9f9f9, white);
       padding: 80px 20px;
@@ -496,6 +758,19 @@
         padding: 10px 20px;
         font-size: 14px;
       }
+
+      .event-header-cronograma {
+        flex-direction: column;
+      }
+
+      .calendar-day {
+        min-height: 80px;
+        padding: 5px 3px;
+      }
+
+      .calendar-event {
+        font-size: 8px;
+      }
     }
   </style>
 </head>
@@ -648,20 +923,13 @@
             <p>
               Formación completa en tecnologías de la información y comunicación. Nuestros estudiantes 
               desarrollan habilidades en programación, desarrollo web, bases de datos, redes de computadores 
-              y mantenimiento de equipos. Aprenden lenguajes como Python, JavaScript, HTML/CSS y trabajan 
-              con herramientas profesionales de la industria.
-            </p>
-            <p>
-              <strong>Salidas laborales:</strong> Desarrollador de software, técnico en redes, soporte técnico, 
-              administrador de bases de datos, diseñador web.
+              y mantenimiento de equipos.
             </p>
             <div class="program-features">
               <span class="feature-tag">💻 Programación</span>
               <span class="feature-tag">🌐 Desarrollo Web</span>
               <span class="feature-tag">🗄️ Bases de Datos</span>
               <span class="feature-tag">🔗 Redes</span>
-              <span class="feature-tag">🛠️ Mantenimiento</span>
-              <span class="feature-tag">☁️ Cloud Computing</span>
             </div>
           </div>
         </div>
@@ -677,21 +945,12 @@
             <h3>Electricidad y Electrónica</h3>
             <p>
               Capacitación integral en instalaciones eléctricas residenciales, comerciales e industriales. 
-              Los estudiantes aprenden diseño de circuitos electrónicos, automatización industrial, control 
-              de procesos y sistemas de energías renovables. Incluye prácticas en laboratorios equipados con 
-              tecnología de última generación.
-            </p>
-            <p>
-              <strong>Salidas laborales:</strong> Electricista industrial, técnico en automatización, 
-              instalador de sistemas solares, técnico en mantenimiento eléctrico.
+              Los estudiantes aprenden diseño de circuitos electrónicos y automatización industrial.
             </p>
             <div class="program-features">
               <span class="feature-tag">⚡ Instalaciones Eléctricas</span>
               <span class="feature-tag">🤖 Automatización</span>
-              <span class="feature-tag">🔌 Circuitos Electrónicos</span>
-              <span class="feature-tag">🏭 Control Industrial</span>
               <span class="feature-tag">☀️ Energía Solar</span>
-              <span class="feature-tag">📊 Instrumentación</span>
             </div>
           </div>
         </div>
@@ -707,21 +966,12 @@
             <h3>Mecánica Industrial</h3>
             <p>
               Formación en procesos de manufactura, mantenimiento preventivo y correctivo de maquinaria, 
-              metrología dimensional, lectura e interpretación de planos técnicos. Los estudiantes desarrollan 
-              competencias en el uso de máquinas-herramienta (torno, fresadora), soldadura (MIG, TIG, arco), 
-              y técnicas de ajuste mecánico.
-            </p>
-            <p>
-              <strong>Salidas laborales:</strong> Técnico mecánico industrial, operador de máquinas-herramienta, 
-              soldador certificado, inspector de calidad, técnico en mantenimiento.
+              metrología dimensional y lectura de planos técnicos.
             </p>
             <div class="program-features">
               <span class="feature-tag">🔧 Manufactura</span>
               <span class="feature-tag">⚙️ Mantenimiento</span>
-              <span class="feature-tag">📐 Metrología</span>
               <span class="feature-tag">🔥 Soldadura</span>
-              <span class="feature-tag">🛠️ Máquinas-Herramienta</span>
-              <span class="feature-tag">📋 Control de Calidad</span>
             </div>
           </div>
         </div>
@@ -737,21 +987,12 @@
             <h3>Administración y Contabilidad</h3>
             <p>
               Desarrollo de competencias empresariales en gestión administrativa, contabilidad financiera, 
-              análisis de costos, servicio al cliente y emprendimiento. Los estudiantes aprenden manejo de 
-              software contable, elaboración de estados financieros, nómina, impuestos y estrategias de 
-              mercadeo. Se fomenta la mentalidad emprendedora y el liderazgo empresarial.
-            </p>
-            <p>
-              <strong>Salidas laborales:</strong> Auxiliar contable, asistente administrativo, emprendedor, 
-              auxiliar de recursos humanos, asesor comercial.
+              análisis de costos y emprendimiento.
             </p>
             <div class="program-features">
               <span class="feature-tag">💼 Contabilidad</span>
               <span class="feature-tag">💰 Finanzas</span>
               <span class="feature-tag">🚀 Emprendimiento</span>
-              <span class="feature-tag">📊 Gestión Empresarial</span>
-              <span class="feature-tag">👥 Recursos Humanos</span>
-              <span class="feature-tag">📈 Marketing</span>
             </div>
           </div>
         </div>
@@ -759,6 +1000,8 @@
     </div>
   </section>
 
+  
+ 
   <!-- INSTALACIONES -->
   <section class="facilities-section">
     <div class="container">
@@ -769,7 +1012,7 @@
             <box-icon name='desktop' color='white' size='36px'></box-icon>
           </div>
           <h4>Laboratorios de Cómputo</h4>
-          <p>3 laboratorios equipados con computadores de última generación y software especializado</p>
+          <p>3 laboratorios equipados con computadores de última generación</p>
         </div>
 
         <div class="facility-card">
@@ -777,7 +1020,7 @@
             <box-icon name='wrench' color='white' size='36px'></box-icon>
           </div>
           <h4>Talleres Especializados</h4>
-          <p>Talleres de electricidad, electrónica, mecánica y soldadura completamente equipados</p>
+          <p>Talleres de electricidad, electrónica, mecánica y soldadura</p>
         </div>
 
         <div class="facility-card">
@@ -785,7 +1028,7 @@
             <box-icon name='book-open' color='white' size='36px'></box-icon>
           </div>
           <h4>Biblioteca</h4>
-          <p>Amplia colección de libros técnicos, científicos y literarios, más recursos digitales</p>
+          <p>Amplia colección de libros técnicos y recursos digitales</p>
         </div>
 
         <div class="facility-card">
@@ -793,7 +1036,7 @@
             <box-icon name='test-tube' color='white' size='36px'></box-icon>
           </div>
           <h4>Laboratorios de Ciencias</h4>
-          <p>Laboratorios de física, química y biología para experimentación práctica</p>
+          <p>Laboratorios de física, química y biología</p>
         </div>
 
         <div class="facility-card">
@@ -801,7 +1044,7 @@
             <box-icon name='football' color='white' size='36px'></box-icon>
           </div>
           <h4>Zonas Deportivas</h4>
-          <p>Canchas múltiples, coliseo cubierto y espacios para actividades deportivas</p>
+          <p>Canchas múltiples y coliseo cubierto</p>
         </div>
 
         <div class="facility-card">
@@ -809,9 +1052,52 @@
             <box-icon name='wifi' color='white' size='36px'></box-icon>
           </div>
           <h4>Conectividad</h4>
-          <p>Internet de alta velocidad en todas las instalaciones del instituto</p>
+          <p>Internet de alta velocidad en todas las instalaciones</p>
         </div>
       </div>
+    </div>
+  </section>
+
+   <!-- CRONOGRAMA ESCOLAR -->
+  <section class="cronograma-section">
+    <div class="container">
+      <div class="cronograma-header">
+        <h2>📅 Cronograma Escolar 2025</h2>
+        <p>Conoce todas las fechas importantes del año académico</p>
+      </div>
+
+      <div class="view-toggle">
+        <button id="listViewBtn" class="active">📋 Lista de Eventos</button>
+        <button id="calendarViewBtn">📅 Vista de Calendario</button>
+      </div>
+
+      <div class="cronograma-filters">
+        <select id="monthFilter">
+          <option value="">Todos los meses</option>
+          <option value="0">Enero</option>
+          <option value="1">Febrero</option>
+          <option value="2">Marzo</option>
+          <option value="3">Abril</option>
+          <option value="4">Mayo</option>
+          <option value="5">Junio</option>
+          <option value="6">Julio</option>
+          <option value="7">Agosto</option>
+          <option value="8">Septiembre</option>
+          <option value="9">Octubre</option>
+          <option value="10">Noviembre</option>
+          <option value="11">Diciembre</option>
+        </select>
+        <select id="typeFilter">
+          <option value="">Todos los tipos</option>
+          <option value="academico">Académico</option>
+          <option value="vacaciones">Vacaciones</option>
+          <option value="evaluacion">Evaluación</option>
+          <option value="cultural">Cultural</option>
+          <option value="deportivo">Deportivo</option>
+        </select>
+      </div>
+
+      <div class="timeline-container" id="timelineContainer"></div>
     </div>
   </section>
 
@@ -819,9 +1105,6 @@
   <section class="schedule-section">
     <div class="container">
       <h2 class="section-title">🕐 Horarios Académicos</h2>
-      <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto 20px;">
-        Organizamos nuestro tiempo para maximizar el aprendizaje y desarrollo de nuestros estudiantes
-      </p>
       <div class="schedule-table">
         <table>
           <thead>
@@ -842,20 +1125,14 @@
             <tr>
               <td>Secundaria</td>
               <td>Mañana</td>
-              <td>6:45 PM - 1:30 PM</td>
+              <td>6:45 AM - 1:30 PM</td>
               <td>Lunes a Viernes</td>
             </tr>
             <tr>
-              <td>Bachillerato Técnico (10°-11°)</td>
+              <td>Bachillerato Técnico</td>
               <td>Completa</td>
               <td>7:00 AM - 3:00 PM</td>
               <td>Lunes a Viernes</td>
-            </tr>
-            <tr>
-              
-            </tr>
-            <tr>
-            
             </tr>
           </tbody>
         </table>
@@ -868,8 +1145,7 @@
     <div class="container">
       <h2>¿Listo para Formar Parte de Nuestra Familia?</h2>
       <p>
-        Inscribe a tu hijo(a) en una institución comprometida con la excelencia educativa 
-        y la formación técnica de calidad
+        Inscribe a tu hijo(a) en una institución comprometida con la excelencia educativa
       </p>
       <div class="cta-buttons">
         <a href="../index.html#inscripciones" class="btn btn-yellow">
@@ -914,17 +1190,217 @@
       tab.addEventListener('click', () => {
         const program = tab.dataset.program;
         
-        // Remover active de todos
         programTabs.forEach(t => t.classList.remove('active'));
         programContents.forEach(c => c.classList.remove('active'));
         
-        // Activar el seleccionado
         tab.classList.add('active');
         document.getElementById(program).classList.add('active');
       });
     });
 
-    // Animación de entrada para cards
+    // CRONOGRAMA
+    const events = [
+      { date: '2025-01-15', endDate: '2025-01-15', title: 'Inicio del Año Escolar 2025', description: 'Bienvenida a estudiantes, docentes y padres de familia.', type: 'academico' },
+      { date: '2025-01-20', endDate: '2025-01-24', title: 'Semana de Inducción', description: 'Actividades de integración y presentación de docentes.', type: 'academico' },
+      { date: '2025-02-03', endDate: '2025-02-07', title: 'Semana de Nivelación', description: 'Evaluación diagnóstica y actividades de refuerzo.', type: 'evaluacion' },
+      { date: '2025-02-14', endDate: '2025-02-14', title: 'Día del Amor y la Amistad', description: 'Actividades recreativas y culturales.', type: 'cultural' },
+      { date: '2025-02-24', endDate: '2025-02-28', title: 'Primera Semana de Evaluaciones', description: 'Evaluaciones del primer periodo académico.', type: 'evaluacion' },
+      { date: '2025-03-08', endDate: '2025-03-08', title: 'Día Internacional de la Mujer', description: 'Conferencias y actividades de reconocimiento.', type: 'cultural' },
+      { date: '2025-03-17', endDate: '2025-03-21', title: 'Semana de Ciencia y Tecnología', description: 'Feria científica y proyectos de investigación.', type: 'academico' },
+      { date: '2025-04-14', endDate: '2025-04-25', title: 'Vacaciones de Semana Santa', description: 'Receso escolar por Semana Santa.', type: 'vacaciones' },
+      { date: '2025-05-01', endDate: '2025-05-01', title: 'Día del Trabajo', description: 'Día festivo - no hay clases.', type: 'vacaciones' },
+      { date: '2025-05-15', endDate: '2025-05-15', title: 'Día del Maestro', description: 'Homenaje a los docentes.', type: 'cultural' },
+      { date: '2025-05-26', endDate: '2025-05-30', title: 'Segunda Semana de Evaluaciones', description: 'Evaluaciones del segundo periodo.', type: 'evaluacion' },
+      { date: '2025-06-16', endDate: '2025-06-20', title: 'Semana Deportiva', description: 'Competencias deportivas y torneos.', type: 'deportivo' },
+      { date: '2025-07-01', endDate: '2025-07-11', title: 'Vacaciones de Mitad de Año', description: 'Receso escolar de mitad de año.', type: 'vacaciones' },
+      { date: '2025-07-14', endDate: '2025-07-14', title: 'Inicio Segundo Semestre', description: 'Reinicio de actividades académicas.', type: 'academico' },
+      { date: '2025-08-07', endDate: '2025-08-07', title: 'Batalla de Boyacá', description: 'Acto cívico conmemorativo.', type: 'cultural' },
+      { date: '2025-08-25', endDate: '2025-08-29', title: 'Tercera Semana de Evaluaciones', description: 'Evaluaciones del tercer periodo.', type: 'evaluacion' },
+      { date: '2025-09-15', endDate: '2025-09-19', title: 'Semana de la Paz', description: 'Actividades de convivencia y cultura de paz.', type: 'cultural' },
+      { date: '2025-10-27', endDate: '2025-10-31', title: 'Semana de Halloween', description: 'Actividades recreativas y concurso de disfraces.', type: 'cultural' },
+      { date: '2025-11-17', endDate: '2025-11-21', title: 'Cuarta Semana de Evaluaciones', description: 'Evaluaciones finales del cuarto periodo.', type: 'evaluacion' },
+      { date: '2025-12-08', endDate: '2025-12-12', title: 'Semana de Clausura', description: 'Ceremonias de graduación y reconocimientos.', type: 'academico' },
+      { date: '2025-12-15', endDate: '2025-12-31', title: 'Vacaciones de Fin de Año', description: 'Receso escolar de fin de año.', type: 'vacaciones' }
+    ];
+
+    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const monthIcons = ['❄️', '💐', '🌸', '🌺', '🌻', '☀️', '🏖️', '🍂', '🍁', '🎃', '🍂', '🎄'];
+    const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+    let filteredEvents = [...events];
+    let currentView = 'list';
+
+    function getDaysInMonth(year, month) {
+      return new Date(year, month + 1, 0).getDate();
+    }
+
+    function getFirstDayOfMonth(year, month) {
+      return new Date(year, month, 1).getDay();
+    }
+
+    function getEventsForDay(year, month, day) {
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      return filteredEvents.filter(event => {
+        const eventStart = new Date(event.date);
+        const eventEnd = new Date(event.endDate);
+        const currentDate = new Date(dateStr);
+        return currentDate >= eventStart && currentDate <= eventEnd;
+      });
+    }
+
+    function renderListView() {
+      const container = document.getElementById('timelineContainer');
+      container.innerHTML = '';
+
+      const eventsByMonth = {};
+      filteredEvents.forEach(event => {
+        const month = new Date(event.date).getMonth();
+        if (!eventsByMonth[month]) eventsByMonth[month] = [];
+        eventsByMonth[month].push(event);
+      });
+
+      Object.keys(eventsByMonth).sort((a, b) => a - b).forEach(month => {
+        const monthSection = document.createElement('div');
+        monthSection.className = 'month-section';
+        
+        const monthHeader = document.createElement('div');
+        monthHeader.className = 'month-header';
+        monthHeader.innerHTML = `
+          <span class="month-icon">${monthIcons[month]}</span>
+          <h3>${monthNames[month]} 2025</h3>
+        `;
+        monthSection.appendChild(monthHeader);
+
+        const eventsList = document.createElement('div');
+        eventsList.className = 'events-list';
+
+        eventsByMonth[month].forEach(event => {
+          const eventCard = document.createElement('div');
+          eventCard.className = `event-card-cronograma ${event.type}`;
+          
+          const date = new Date(event.date);
+          const formattedDate = date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+          
+          eventCard.innerHTML = `
+            <div class="event-header-cronograma">
+              <h4 class="event-title-cronograma">${event.title}</h4>
+              <span class="event-date-badge">${formattedDate}</span>
+            </div>
+            <p class="event-description-cronograma">${event.description}</p>
+            <span class="event-type-badge ${event.type}">${event.type}</span>
+          `;
+          
+          eventsList.appendChild(eventCard);
+        });
+
+        monthSection.appendChild(eventsList);
+        container.appendChild(monthSection);
+      });
+    }
+
+    function renderCalendarView() {
+      const container = document.getElementById('timelineContainer');
+      container.innerHTML = '';
+
+      const monthFilter = document.getElementById('monthFilter').value;
+      const months = monthFilter ? [parseInt(monthFilter)] : Array.from({length: 12}, (_, i) => i);
+
+      months.forEach(month => {
+        const monthSection = document.createElement('div');
+        monthSection.className = 'month-section';
+        
+        monthSection.innerHTML = `
+          <div class="month-header">
+            <span class="month-icon">${monthIcons[month]}</span>
+            <h3>${monthNames[month]} 2025</h3>
+          </div>
+        `;
+
+        const calendarGrid = document.createElement('div');
+        calendarGrid.className = 'calendar-grid';
+
+        dayNames.forEach(day => {
+          const header = document.createElement('div');
+          header.className = 'calendar-header-cell';
+          header.textContent = day;
+          calendarGrid.appendChild(header);
+        });
+
+        const daysInMonth = getDaysInMonth(2025, month);
+        const firstDay = getFirstDayOfMonth(2025, month);
+
+        for (let i = 0; i < firstDay; i++) {
+          const emptyDay = document.createElement('div');
+          emptyDay.className = 'calendar-day other-month';
+          calendarGrid.appendChild(emptyDay);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayCell = document.createElement('div');
+          dayCell.className = 'calendar-day';
+          
+          const dayEvents = getEventsForDay(2025, month, day);
+          
+          let html = `<div class="day-number">${day}</div>`;
+          
+          if (dayEvents.length > 0) {
+            html += '<div class="day-events">';
+            dayEvents.slice(0, 3).forEach(event => {
+              html += `<div class="calendar-event ${event.type}" title="${event.title}">${event.title}</div>`;
+            });
+            if (dayEvents.length > 3) {
+              html += `<div style="font-size: 9px; color: #666; text-align: center;">+${dayEvents.length - 3} más</div>`;
+            }
+            html += '</div>';
+          }
+          
+          dayCell.innerHTML = html;
+          calendarGrid.appendChild(dayCell);
+        }
+
+        monthSection.appendChild(calendarGrid);
+        container.appendChild(monthSection);
+      });
+    }
+
+    function filterEvents() {
+      const monthFilter = document.getElementById('monthFilter').value;
+      const typeFilter = document.getElementById('typeFilter').value;
+
+      filteredEvents = events.filter(event => {
+        const monthMatch = !monthFilter || new Date(event.date).getMonth() === parseInt(monthFilter);
+        const typeMatch = !typeFilter || event.type === typeFilter;
+        return monthMatch && typeMatch;
+      });
+
+      if (currentView === 'calendar') {
+        renderCalendarView();
+      } else {
+        renderListView();
+      }
+    }
+
+    document.getElementById('listViewBtn').addEventListener('click', () => {
+      currentView = 'list';
+      document.getElementById('listViewBtn').classList.add('active');
+      document.getElementById('calendarViewBtn').classList.remove('active');
+      renderListView();
+    });
+
+    document.getElementById('calendarViewBtn').addEventListener('click', () => {
+      currentView = 'calendar';
+      document.getElementById('calendarViewBtn').classList.add('active');
+      document.getElementById('listViewBtn').classList.remove('active');
+      renderCalendarView();
+    });
+
+    document.getElementById('monthFilter').addEventListener('change', filterEvents);
+    document.getElementById('typeFilter').addEventListener('change', filterEvents);
+
+    // Inicializar
+    renderListView();
+
+    // Animación de entrada
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'

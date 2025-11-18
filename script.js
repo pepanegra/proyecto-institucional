@@ -318,3 +318,4 @@ setInterval(() => {
   loadNews();
   loadGallery();
 }, 5 * 60 * 1000);
+

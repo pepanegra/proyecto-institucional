@@ -8,6 +8,650 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/jpeg" href="src/logo.jpeg">
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <style>
+    /* Animaciones generales */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Mejorar sección de aliados */
+    #aliados {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #aliados::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 51, 102, 0.05), transparent);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    #aliados .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      color: #003366;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    #aliados .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #FFD700, #FFA500);
+      border-radius: 2px;
+    }
+
+    /* Carrusel de aliados */
+    .partners-carousel {
+      position: relative;
+      margin-top: 60px;
+      overflow: hidden;
+      padding: 20px 0;
+      max-width: 100%;
+    }
+
+    .partners-container {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 30px;
+      will-change: transform;
+    }
+
+    .partner-slide {
+      min-width: calc(33.333% - 20px);
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 1024px) {
+      .partner-slide {
+        min-width: calc(50% - 15px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .partner-slide {
+        min-width: calc(100% - 30px);
+      }
+      
+      .partners-container {
+        gap: 30px;
+      }
+    }
+
+    .partners-grid {
+      display: none;
+    }
+
+    .partner-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .partner-card.animate {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    .partner-card.will-animate {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .partner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #003366, #FFD700);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .partner-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .partner-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 51, 102, 0.2);
+    }
+
+    .partner-logo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #003366 0%, #0055aa 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      position: relative;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0, 51, 102, 0.2);
+    }
+
+    .partner-card:hover .partner-logo {
+      transform: rotate(360deg) scale(1.1);
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    }
+
+    .partner-logo::after {
+      content: '';
+      position: absolute;
+      width: 110%;
+      height: 110%;
+      border: 3px solid rgba(255, 215, 0, 0.3);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .partner-card h4 {
+      color: #003366;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .partner-card:hover h4 {
+      color: #FFD700;
+    }
+
+    .partner-card p {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.6;
+      transition: color 0.3s ease;
+    }
+
+    .partner-card:hover p {
+      color: #003366;
+    }
+
+    /* Controles del carrusel */
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .carousel-btn {
+      background: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #003366;
+      color: #003366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 51, 102, 0.1);
+    }
+
+    .carousel-btn:hover {
+      background: #003366;
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 51, 102, 0.3);
+    }
+
+    .carousel-btn:active {
+      transform: scale(0.95);
+    }
+
+    .carousel-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(0, 51, 102, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: #003366;
+      width: 30px;
+      border-radius: 6px;
+    }
+
+    .carousel-dot:hover {
+      background: #003366;
+      transform: scale(1.2);
+    }
+
+    /* Indicador de autoplay */
+    .autoplay-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #666;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .autoplay-toggle {
+      background: white;
+      border: 2px solid #003366;
+      color: #003366;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .autoplay-toggle:hover {
+      background: #003366;
+      color: white;
+    }
+
+    .autoplay-toggle.playing {
+      background: #FFD700;
+      border-color: #FFD700;
+      color: #003366;
+    }
+
+    /* Mejorar cards académicas */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #003366, #FFD700);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 51, 102, 0.15);
+    }
+
+    .card h4 {
+      color: #003366;
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .card h4::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #FFD700;
+      transition: width 0.3s ease;
+    }
+
+    .card:hover h4::after {
+      width: 100%;
+    }
+
+    /* Mejorar galería */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 50px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    /* Mejorar ubicación */
+    .location-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 50px;
+      align-items: center;
+    }
+
+    .location-info {
+      display: grid;
+      gap: 25px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, #003366, #FFD700);
+      transform: scaleY(0);
+      transition: transform 0.4s ease;
+    }
+
+    .info-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .info-card:hover {
+      transform: translateX(10px);
+      box-shadow: 0 12px 35px rgba(0, 51, 102, 0.15);
+    }
+
+    .info-card box-icon {
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .info-card:hover box-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .info-card h4 {
+      color: #003366;
+      font-size: 18px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .info-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .location-map {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      height: 500px;
+      transition: transform 0.4s ease;
+    }
+
+    .location-map:hover {
+      transform: scale(1.02);
+    }
+
+    .location-map iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Mejorar formulario de contacto */
+    .contact-form {
+      max-width: 700px;
+      margin: 40px auto 0;
+      background: white;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #003366;
+      box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #003366 0%, #0055aa 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 51, 102, 0.3);
+    }
+
+    .contact-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 51, 102, 0.4);
+    }
+
+    .contact-form button:active {
+      transform: translateY(-1px);
+    }
+
+    /* Animaciones de entrada para secciones */
+    .section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Contador animado para estadísticas */
+    .stats-section {
+      background: linear-gradient(135deg, #003366 0%, #0055aa 100%);
+      padding: 80px 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
+    }
+
+    .stat-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .stat-item.will-animate {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .stat-item.animate {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .stat-number {
+      font-size: 56px;
+      font-weight: 800;
+      color: #FFD700;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      opacity: 0.95;
+    }
+
+    @media (max-width: 768px) {
+      .location-content {
+        grid-template-columns: 1fr;
+      }
+
+      .location-map {
+        height: 350px;
+      }
+
+      .contact-form {
+        padding: 30px 20px;
+      }
+
+      .partners-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -33,13 +677,11 @@
   <!-- HEADER -->
   <header class="header">
     <div class="container header-container">
-      <!-- Logo -->
       <div class="logo">
         <img src="src/logo.jpeg" alt="Logo del Instituto">
         <h1>Instituto Técnico Industrial Manuel Elkin Patarroyo</h1>
       </div>
 
-      <!-- Menú principal -->
       <nav class="nav" aria-label="Navegación principal">
         <a href="index.html">Inicio</a>
         <a href="paginas_secundarias/sobrenosotros.html">Institución</a>
@@ -49,13 +691,11 @@
         <a href="paginas_secundarias/contactanos.html">Contacto</a>
       </nav>
 
-      <!-- Botón menú móvil -->
       <button id="menu-btn" class="menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
         <box-icon name='menu' color='white'></box-icon>
       </button>
     </div>
 
-    <!-- Menú móvil desplegable -->
     <nav id="mobile-menu" class="mobile-menu" aria-label="Navegación móvil">
       <a href="index.html">Inicio</a>
       <a href="paginas_secundarias/sobrenosotros.html">Institución</a>
@@ -78,12 +718,36 @@
     </div>
   </section>
 
+  <!-- ESTADÍSTICAS -->
+  <section class="stats-section">
+    <div class="container">
+      <h3 class="section-title" style="color: white;">Nuestra Trayectoria en Números</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number" data-target="25">0</span>
+          <span class="stat-label">Años de Excelencia</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="1200">0</span>
+          <span class="stat-label">Estudiantes Activos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="85">0</span>
+          <span class="stat-label">Docentes Calificados</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="95">0</span>
+          <span class="stat-label">% Satisfacción</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- NOTICIAS Y EVENTOS -->
   <section id="noticias" class="section bg-light">
     <div class="container">
       <h3 class="section-title">Noticias y Eventos</h3>
       <div id="news-container" class="news-grid">
-        <!-- Las noticias se cargarán dinámicamente -->
         <div class="loading">Cargando noticias...</div>
       </div>
     </div>
@@ -124,60 +788,87 @@
   </section>
 
   <!-- ALIADOS -->
-  <section id="aliados" class="section bg-light">
+  <section id="aliados" class="section">
     <div class="container">
       <h3 class="section-title">Nuestros Aliados Estratégicos</h3>
-      <p style="text-align: center; color: #666; margin-bottom: 40px;">
-        Trabajamos con instituciones líderes para ofrecer la mejor formación
+      <p style="text-align: center; color: #666; max-width: 700px; margin: 20px auto; font-size: 18px;">
+        Trabajamos con instituciones líderes para ofrecer la mejor formación a nuestros estudiantes
       </p>
-      <div class="partners-grid">
-        <div class="partner-card">
-          <div class="partner-logo">
-            <box-icon name='building' color='#003366' size='48px'></box-icon>
+      
+      <div class="partners-carousel">
+        <div class="partners-container" id="partnersContainer">
+          <div class="partner-slide">
+            <div class="partner-card">
+              <div class="partner-logo">
+                <box-icon name='building' color='white' size='48px'></box-icon>
+              </div>
+              <h4>SENA</h4>
+              <p>Servicio Nacional de Aprendizaje - Programas técnicos certificados</p>
+            </div>
           </div>
-          <h4>SENA</h4>
-          <p>Servicio Nacional de Aprendizaje</p>
+          
+          <div class="partner-slide">
+            <div class="partner-card">
+              <div class="partner-logo">
+                <box-icon name='book-alt' color='white' size='48px'></box-icon>
+              </div>
+              <h4>Universidad del Valle</h4>
+              <p>Convenio de Articulación para educación superior</p>
+            </div>
+          </div>
+          
+          <div class="partner-slide">
+            <div class="partner-card">
+              <div class="partner-logo">
+                <box-icon name='graduation' color='white' size='48px'></box-icon>
+              </div>
+              <h4>Universidad Autónoma</h4>
+              <p>Programas Técnicos y apoyo académico continuo</p>
+            </div>
+          </div>
+          
+          <div class="partner-slide">
+            <div class="partner-card">
+              <div class="partner-logo">
+                <box-icon name='briefcase' color='white' size='48px'></box-icon>
+              </div>
+              <h4>Cámara de Comercio</h4>
+              <p>Emprendimiento y desarrollo empresarial estudiantil</p>
+            </div>
+          </div>
+          
+          <div class="partner-slide">
+            <div class="partner-card">
+              <div class="partner-logo">
+                <box-icon name='chip' color='white' size='48px'></box-icon>
+              </div>
+              <h4>Microsoft</h4>
+              <p>Tecnología Educativa y certificaciones internacionales</p>
+            </div>
+          </div>
+          
+          <div class="partner-slide">
+            <div class="partner-card">
+              <div class="partner-logo">
+                <box-icon name='atom' color='white' size='48px'></box-icon>
+              </div>
+              <h4>Colciencias</h4>
+              <p>Investigación Científica y proyectos de innovación</p>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" aria-label="Anterior">
+          <box-icon name='chevron-left' color='currentColor' size='32px'></box-icon>
+        </button>
         
-        <div class="partner-card">
-          <div class="partner-logo">
-            <box-icon name='book-alt' color='#003366' size='48px'></box-icon>
-          </div>
-          <h4>Universidad del Valle</h4>
-          <p>Convenio de Articulación</p>
-        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
         
-        <div class="partner-card">
-          <div class="partner-logo">
-            <box-icon name='graduation' color='#003366' size='48px'></box-icon>
-          </div>
-          <h4>Universidad Autónoma</h4>
-          <p>Programas Técnicos</p>
-        </div>
-        
-        <div class="partner-card">
-          <div class="partner-logo">
-            <box-icon name='briefcase' color='#003366' size='48px'></box-icon>
-          </div>
-          <h4>Cámara de Comercio</h4>
-          <p>Emprendimiento y Empresa</p>
-        </div>
-        
-        <div class="partner-card">
-          <div class="partner-logo">
-            <box-icon name='chip' color='#003366' size='48px'></box-icon>
-          </div>
-          <h4>Microsoft</h4>
-          <p>Tecnología Educativa</p>
-        </div>
-        
-        <div class="partner-card">
-          <div class="partner-logo">
-            <box-icon name='atom' color='#003366' size='48px'></box-icon>
-          </div>
-          <h4>Colciencias</h4>
-          <p>Investigación Científica</p>
-        </div>
+        <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
+          <box-icon name='chevron-right' color='currentColor' size='32px'></box-icon>
+        </button>
       </div>
     </div>
   </section>
@@ -208,7 +899,7 @@
             <box-icon name='envelope' color='#003366' size='32px'></box-icon>
             <div>
               <h4>Email</h4>
-              <p> fundamepatarroyo@gmail.com<br>itimep2020@gmail.com</p>
+              <p>fundamepatarroyo@gmail.com<br>itimep2020@gmail.com</p>
             </div>
           </div>
           
@@ -224,9 +915,6 @@
         <div class="location-map">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.94!2d-76.4679717!3d3.4113799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a74fd7ae84e9%3A0x4e4a777183778dea!2sColegio%20Manuel%20Elkin%20Patarroyo%20Cali!5e0!3m2!1ses!2sco!4v0000000000000"
-            width="70%" 
-            height="100%" 
-            style="border:0; border-radius: 12px;" 
             allowfullscreen="" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade">
@@ -241,15 +929,9 @@
     <div class="container">
       <h3 class="section-title">Contáctanos</h3>
       <form class="contact-form" id="contact-form">
-        <label for="nombre" class="sr-only">Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
-        
-        <label for="correo" class="sr-only">Correo electrónico</label>
         <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
-        
-        <label for="mensaje" class="sr-only">Mensaje</label>
         <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
-        
         <button type="submit">Enviar Mensaje</button>
       </form>
       <div id="form-message" class="form-message"></div>
@@ -269,7 +951,504 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Animación de contador
+    function animateCounter(element) {
+      const target = parseInt(element.getAttribute('data-target'));
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          element.textContent = target;
+          clearInterval(timer);
+        } else {
+          element.textContent = Math.floor(current);
+        }
+      }, 16);
+    }
+
+    // Observer para animaciones de entrada
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Animar tarjetas de aliados
+          if (entry.target.id === 'aliados') {
+            const cards = entry.target.querySelectorAll('.partner-card');
+            cards.forEach((card, index) => {
+              card.classList.add('will-animate');
+              setTimeout(() => {
+                card.classList.add('animate');
+                card.classList.remove('will-animate');
+              }, index * 100);
+            });
+          }
+
+          // Animar estadísticas
+          if (entry.target.classList.contains('stats-section')) {
+            const statItems = entry.target.querySelectorAll('.stat-item');
+            statItems.forEach((item, index) => {
+              item.classList.add('will-animate');
+              setTimeout(() => {
+                item.classList.add('animate');
+                item.classList.remove('will-animate');
+                const counter = item.querySelector('.stat-number');
+                animateCounter(counter);
+              }, index * 150);
+            });
+          }
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observar secciones
+    document.querySelectorAll('.section, .stats-section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Animación suave de scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+
+    // Parallax suave en scroll
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Efecto parallax para el banner
+      const banner = document.querySelector('.banner');
+      if (banner) {
+        banner.style.backgroundPositionY = scrollTop * 0.5 + 'px';
+      }
+
+      lastScrollTop = scrollTop;
+    }, { passive: true });
+
+    // Animación de hover para galería con zoom
+    document.querySelectorAll('.gallery-grid img').forEach(img => {
+      img.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+      });
+      
+      img.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+      });
+    });
+
+    // Efecto ripple en botones
+    document.querySelectorAll('.btn, .contact-form button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+
+    // Añadir estilo para el efecto ripple
+    const style = document.createElement('style');
+    style.textContent = `
+      .btn, .contact-form button {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple-animation 0.6s ease-out;
+        pointer-events: none;
+      }
+      
+      @keyframes ripple-animation {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Lazy loading mejorado para imágenes
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.6s ease';
+            
+            img.addEventListener('load', () => {
+              img.style.opacity = '1';
+            });
+            
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+            }
+            
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
+
+    // Animación de las tarjetas académicas al hacer scroll
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 100);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s ease';
+      cardObserver.observe(card);
+    });
+
+    // Mejorar el efecto hover en info-cards
+    document.querySelectorAll('.info-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateX(10px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateX(0) scale(1)';
+      });
+    });
+
+    // Animación de entrada para el título de sección
+    const titleObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          titleObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.section-title').forEach(title => {
+      title.style.opacity = '0';
+      title.style.transform = 'translateY(-20px)';
+      title.style.transition = 'all 0.8s ease';
+      titleObserver.observe(title);
+    });
+
+    // Efecto de typing en el banner (opcional)
+    const bannerText = document.querySelector('.banner-content h2');
+    if (bannerText) {
+      const originalText = bannerText.textContent;
+      bannerText.textContent = '';
+      bannerText.style.opacity = '1';
+      
+      let charIndex = 0;
+      const typingSpeed = 50;
+      
+      setTimeout(() => {
+        const typingInterval = setInterval(() => {
+          if (charIndex < originalText.length) {
+            bannerText.textContent += originalText[charIndex];
+            charIndex++;
+          } else {
+            clearInterval(typingInterval);
+          }
+        }, typingSpeed);
+      }, 500);
+    }
+
+    // Scroll reveal para elementos individuales
+    const revealElements = document.querySelectorAll('.gallery-grid img, .info-card');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0) scale(1)';
+          }, index * 50);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px) scale(0.95)';
+      element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      revealObserver.observe(element);
+    });
+
+    // Performance: reducir animaciones en dispositivos con batería baja
+    if ('getBattery' in navigator) {
+      navigator.getBattery().then(battery => {
+        if (battery.level < 0.2 && !battery.charging) {
+          document.body.classList.add('reduce-motion');
+          const reduceMotionStyle = document.createElement('style');
+          reduceMotionStyle.textContent = `
+            .reduce-motion * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          `;
+          document.head.appendChild(reduceMotionStyle);
+        }
+      });
+    }
+
+    // Inicialización
+    console.log('✨ Animaciones cargadas correctamente');
+    
+    // Asegurar que las estadísticas se animen cuando sean visibles
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+
+    // ========== CARRUSEL DE ALIADOS ==========
+    const partnersContainer = document.getElementById('partnersContainer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('carouselDots');
+
+    if (partnersContainer && prevBtn && nextBtn && dotsContainer) {
+      let currentIndex = 0;
+      let autoplayInterval;
+      let slidesPerView = 3;
+
+      // Detectar número de slides visibles según el ancho de pantalla
+      function updateSlidesPerView() {
+        const width = window.innerWidth;
+        if (width <= 640) {
+          slidesPerView = 1;
+        } else if (width <= 1024) {
+          slidesPerView = 2;
+        } else {
+          slidesPerView = 3;
+        }
+      }
+
+      const slides = partnersContainer.querySelectorAll('.partner-slide');
+      const totalSlides = slides.length;
+
+      function getMaxIndex() {
+        return Math.max(0, totalSlides - slidesPerView);
+      }
+
+      // Crear dots
+      function createDots() {
+        dotsContainer.innerHTML = '';
+        const maxIndex = getMaxIndex();
+        for (let i = 0; i <= maxIndex; i++) {
+          const dot = document.createElement('button');
+          dot.className = 'carousel-dot';
+          dot.setAttribute('aria-label', `Ir a grupo ${i + 1}`);
+          if (i === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => goToSlide(i));
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      // Actualizar posición del carrusel
+      function updateCarousel() {
+        const slideWidth = slides[0].offsetWidth + 30; // ancho + gap
+        const offset = -(currentIndex * slideWidth);
+        partnersContainer.style.transform = `translateX(${offset}px)`;
+
+        // Actualizar dots
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentIndex);
+        });
+
+        // Actualizar botones
+        const maxIndex = getMaxIndex();
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+      }
+
+      // Navegar a slide específico
+      function goToSlide(index) {
+        const maxIndex = getMaxIndex();
+        currentIndex = Math.max(0, Math.min(index, maxIndex));
+        updateCarousel();
+        resetAutoplay();
+      }
+
+      // Siguiente slide
+      function nextSlide() {
+        const maxIndex = getMaxIndex();
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+        } else {
+          currentIndex = 0; // Volver al inicio
+        }
+        updateCarousel();
+      }
+
+      // Slide anterior
+      function prevSlide() {
+        const maxIndex = getMaxIndex();
+        if (currentIndex > 0) {
+          currentIndex--;
+        } else {
+          currentIndex = maxIndex; // Ir al final
+        }
+        updateCarousel();
+      }
+
+      // Autoplay
+      function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+          nextSlide();
+        }, 3000); // Cambiar cada 3 segundos
+      }
+
+      function stopAutoplay() {
+        clearInterval(autoplayInterval);
+      }
+
+      function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      // Event Listeners
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetAutoplay();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAutoplay();
+      });
+
+      // Pausar autoplay al hacer hover
+      partnersContainer.addEventListener('mouseenter', stopAutoplay);
+      partnersContainer.addEventListener('mouseleave', startAutoplay);
+
+      // Soporte para gestos táctiles (swipe)
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      partnersContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+      }, { passive: true });
+
+      partnersContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+      }
+
+      // Navegación con teclado
+      document.addEventListener('keydown', (e) => {
+        const aliadosSection = document.getElementById('aliados');
+        const rect = aliadosSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        
+        if (isVisible) {
+          if (e.key === 'ArrowLeft') {
+            prevSlide();
+            resetAutoplay();
+          } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            resetAutoplay();
+          }
+        }
+      });
+
+      // Responsive: actualizar al cambiar tamaño de ventana
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          const oldSlidesPerView = slidesPerView;
+          updateSlidesPerView();
+          
+          if (oldSlidesPerView !== slidesPerView) {
+            currentIndex = 0;
+            createDots();
+            updateCarousel();
+          } else {
+            updateCarousel();
+          }
+        }, 250);
+      });
+
+      // Inicializar carrusel
+      updateSlidesPerView();
+      createDots();
+      updateCarousel();
+      startAutoplay();
+
+      console.log('🎠 Carrusel de aliados inicializado correctamente');
+    } else {
+      console.error('❌ No se encontraron elementos del carrusel');
+    }
+
+    console.log('🎠 Carrusel de aliados inicializado');
+  </script>
 </body>
 </html>
-
-

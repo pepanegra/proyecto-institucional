@@ -1,20 +1,29 @@
 [
   {
-    "id": "1762203221350",
-    "title": "Baile artistico",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi aperiam ea praesentium sequi nihil voluptatem, explicabo quam natus qui, impedit beatae optio commodi tempore nulla cumque, inventore officia cum excepturi.",
-    "link": "#",
-    "date": "2025-11-03T20:53:41.350Z",
-    "image": "/uploads/news/1762203221144-360640731.jpg",
-    "createdBy": "cristian latorre"
-  },
-  {
     "id": "1762379577283",
     "title": "prueba 1",
     "description": "Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below and press Enter to allow pasting.",
     "link": "#",
     "date": "2025-11-05T21:52:57.283Z",
     "image": "/uploads/news/1762379577282-708234093.jpg",
+    "createdBy": "cristian latorre"
+  },
+  {
+    "id": "1762433245717",
+    "title": "Noticia del proyecto",
+    "description": "Texto de prueba\r\n",
+    "link": "#",
+    "date": "2025-11-06T12:47:25.717Z",
+    "image": "/uploads/news/1762433245711-580332738.jpg",
+    "createdBy": "cristian latorre"
+  },
+  {
+    "id": "1762433286116",
+    "title": "Noticia del proyecto",
+    "description": "texto prueba\r\n",
+    "link": "#",
+    "date": "2025-11-06T12:48:06.116Z",
+    "image": "/uploads/news/1762433286107-845299167.jpg",
     "createdBy": "cristian latorre"
   }
 ]
