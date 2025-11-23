@@ -114,37 +114,38 @@
     .partners-carousel {
       position: relative;
       margin-top: 60px;
+      width: 100%;
       overflow: hidden;
-      padding: 20px 0;
-      max-width: 100%;
+      padding: 20px 0 40px;
+    }
+
+    .partners-wrapper {
+      overflow: hidden;
+      position: relative;
     }
 
     .partners-container {
       display: flex;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.6s ease-in-out;
       gap: 30px;
-      will-change: transform;
     }
 
     .partner-slide {
-      min-width: calc(33.333% - 20px);
-      flex-shrink: 0;
-      box-sizing: border-box;
+      flex: 0 0 calc(33.333% - 20px);
+      max-width: calc(33.333% - 20px);
     }
 
     @media (max-width: 1024px) {
       .partner-slide {
-        min-width: calc(50% - 15px);
+        flex: 0 0 calc(50% - 15px);
+        max-width: calc(50% - 15px);
       }
     }
 
     @media (max-width: 640px) {
       .partner-slide {
-        min-width: calc(100% - 30px);
-      }
-      
-      .partners-container {
-        gap: 30px;
+        flex: 0 0 100%;
+        max-width: 100%;
       }
     }
 
@@ -796,64 +797,66 @@
       </p>
       
       <div class="partners-carousel">
-        <div class="partners-container" id="partnersContainer">
-          <div class="partner-slide">
-            <div class="partner-card">
-              <div class="partner-logo">
-                <box-icon name='building' color='white' size='48px'></box-icon>
+        <div class="partners-wrapper">
+          <div class="partners-container" id="partnersContainer">
+            <div class="partner-slide">
+              <div class="partner-card">
+                <div class="partner-logo">
+                  <box-icon name='building' color='white' size='48px'></box-icon>
+                </div>
+                <h4>SENA</h4>
+                <p>Servicio Nacional de Aprendizaje - Programas técnicos certificados</p>
               </div>
-              <h4>SENA</h4>
-              <p>Servicio Nacional de Aprendizaje - Programas técnicos certificados</p>
             </div>
-          </div>
-          
-          <div class="partner-slide">
-            <div class="partner-card">
-              <div class="partner-logo">
-                <box-icon name='book-alt' color='white' size='48px'></box-icon>
+            
+            <div class="partner-slide">
+              <div class="partner-card">
+                <div class="partner-logo">
+                  <box-icon name='book-alt' color='white' size='48px'></box-icon>
+                </div>
+                <h4>Universidad del Valle</h4>
+                <p>Convenio de Articulación para educación superior</p>
               </div>
-              <h4>Universidad del Valle</h4>
-              <p>Convenio de Articulación para educación superior</p>
             </div>
-          </div>
-          
-          <div class="partner-slide">
-            <div class="partner-card">
-              <div class="partner-logo">
-                <box-icon name='graduation' color='white' size='48px'></box-icon>
+            
+            <div class="partner-slide">
+              <div class="partner-card">
+                <div class="partner-logo">
+                  <box-icon name='graduation' color='white' size='48px'></box-icon>
+                </div>
+                <h4>Universidad Autónoma</h4>
+                <p>Programas Técnicos y apoyo académico continuo</p>
               </div>
-              <h4>Universidad Autónoma</h4>
-              <p>Programas Técnicos y apoyo académico continuo</p>
             </div>
-          </div>
-          
-          <div class="partner-slide">
-            <div class="partner-card">
-              <div class="partner-logo">
-                <box-icon name='briefcase' color='white' size='48px'></box-icon>
+            
+            <div class="partner-slide">
+              <div class="partner-card">
+                <div class="partner-logo">
+                  <box-icon name='briefcase' color='white' size='48px'></box-icon>
+                </div>
+                <h4>Cámara de Comercio</h4>
+                <p>Emprendimiento y desarrollo empresarial estudiantil</p>
               </div>
-              <h4>Cámara de Comercio</h4>
-              <p>Emprendimiento y desarrollo empresarial estudiantil</p>
             </div>
-          </div>
-          
-          <div class="partner-slide">
-            <div class="partner-card">
-              <div class="partner-logo">
-                <box-icon name='chip' color='white' size='48px'></box-icon>
+            
+            <div class="partner-slide">
+              <div class="partner-card">
+                <div class="partner-logo">
+                  <box-icon name='chip' color='white' size='48px'></box-icon>
+                </div>
+                <h4>Microsoft</h4>
+                <p>Tecnología Educativa y certificaciones internacionales</p>
               </div>
-              <h4>Microsoft</h4>
-              <p>Tecnología Educativa y certificaciones internacionales</p>
             </div>
-          </div>
-          
-          <div class="partner-slide">
-            <div class="partner-card">
-              <div class="partner-logo">
-                <box-icon name='atom' color='white' size='48px'></box-icon>
+            
+            <div class="partner-slide">
+              <div class="partner-card">
+                <div class="partner-logo">
+                  <box-icon name='atom' color='white' size='48px'></box-icon>
+                </div>
+                <h4>Colciencias</h4>
+                <p>Investigación Científica y proyectos de innovación</p>
               </div>
-              <h4>Colciencias</h4>
-              <p>Investigación Científica y proyectos de innovación</p>
             </div>
           </div>
         </div>
@@ -951,7 +954,7 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
+  <!-- <script>
     // Animación de contador
     function animateCounter(element) {
       const target = parseInt(element.getAttribute('data-target'));
@@ -1252,203 +1255,191 @@
     }
 
     // ========== CARRUSEL DE ALIADOS ==========
-    const partnersContainer = document.getElementById('partnersContainer');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const dotsContainer = document.getElementById('carouselDots');
+    setTimeout(() => {
+      const container = document.getElementById('partnersContainer');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const dotsContainer = document.getElementById('carouselDots');
 
-    if (partnersContainer && prevBtn && nextBtn && dotsContainer) {
-      let currentIndex = 0;
-      let autoplayInterval;
-      let slidesPerView = 3;
+      console.log('Buscando elementos del carrusel...');
+      console.log('Container:', container);
+      console.log('PrevBtn:', prevBtn);
+      console.log('NextBtn:', nextBtn);
+      console.log('Dots:', dotsContainer);
 
-      // Detectar número de slides visibles según el ancho de pantalla
-      function updateSlidesPerView() {
-        const width = window.innerWidth;
-        if (width <= 640) {
-          slidesPerView = 1;
-        } else if (width <= 1024) {
-          slidesPerView = 2;
-        } else {
-          slidesPerView = 3;
-        }
+      if (!container || !prevBtn || !nextBtn || !dotsContainer) {
+        console.error('❌ Elementos del carrusel NO encontrados');
+        return;
       }
 
-      const slides = partnersContainer.querySelectorAll('.partner-slide');
+      console.log('✅ Elementos encontrados, inicializando carrusel...');
+
+      let currentSlide = 0;
+      let autoplayTimer = null;
+      const slides = container.querySelectorAll('.partner-slide');
       const totalSlides = slides.length;
 
-      function getMaxIndex() {
-        return Math.max(0, totalSlides - slidesPerView);
+      console.log('Total de slides:', totalSlides);
+
+      function getSlidesPerView() {
+        if (window.innerWidth <= 640) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
       }
 
-      // Crear dots
+      function getMaxSlide() {
+        return Math.max(0, totalSlides - getSlidesPerView());
+      }
+
       function createDots() {
         dotsContainer.innerHTML = '';
-        const maxIndex = getMaxIndex();
-        for (let i = 0; i <= maxIndex; i++) {
+        const max = getMaxSlide();
+        for (let i = 0; i <= max; i++) {
           const dot = document.createElement('button');
           dot.className = 'carousel-dot';
-          dot.setAttribute('aria-label', `Ir a grupo ${i + 1}`);
           if (i === 0) dot.classList.add('active');
-          dot.addEventListener('click', () => goToSlide(i));
+          dot.onclick = () => goToSlide(i);
           dotsContainer.appendChild(dot);
         }
+        console.log('Dots creados:', max + 1);
       }
 
-      // Actualizar posición del carrusel
       function updateCarousel() {
-        const slideWidth = slides[0].offsetWidth + 30; // ancho + gap
-        const offset = -(currentIndex * slideWidth);
-        partnersContainer.style.transform = `translateX(${offset}px)`;
+        const slidesPerView = getSlidesPerView();
+        const percentage = -(currentSlide * (100 / slidesPerView));
+        
+        container.style.transform = `translateX(${percentage}%)`;
+        
+        console.log('Actualizando carrusel:', {
+          currentSlide,
+          slidesPerView,
+          percentage,
+          transform: container.style.transform
+        });
 
         // Actualizar dots
         const dots = dotsContainer.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentIndex);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
         });
 
         // Actualizar botones
-        const maxIndex = getMaxIndex();
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex >= maxIndex;
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide >= getMaxSlide();
       }
 
-      // Navegar a slide específico
       function goToSlide(index) {
-        const maxIndex = getMaxIndex();
-        currentIndex = Math.max(0, Math.min(index, maxIndex));
+        currentSlide = Math.max(0, Math.min(index, getMaxSlide()));
+        console.log('Ir a slide:', currentSlide);
         updateCarousel();
-        resetAutoplay();
+        restartAutoplay();
       }
 
-      // Siguiente slide
       function nextSlide() {
-        const maxIndex = getMaxIndex();
-        if (currentIndex < maxIndex) {
-          currentIndex++;
+        const max = getMaxSlide();
+        if (currentSlide < max) {
+          currentSlide++;
         } else {
-          currentIndex = 0; // Volver al inicio
+          currentSlide = 0;
         }
+        console.log('Siguiente slide:', currentSlide);
         updateCarousel();
       }
 
-      // Slide anterior
       function prevSlide() {
-        const maxIndex = getMaxIndex();
-        if (currentIndex > 0) {
-          currentIndex--;
+        const max = getMaxSlide();
+        if (currentSlide > 0) {
+          currentSlide--;
         } else {
-          currentIndex = maxIndex; // Ir al final
+          currentSlide = max;
         }
+        console.log('Slide anterior:', currentSlide);
         updateCarousel();
       }
 
-      // Autoplay
       function startAutoplay() {
-        autoplayInterval = setInterval(() => {
+        console.log('🎬 Iniciando autoplay...');
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          console.log('⏱️ Autoplay tick');
           nextSlide();
-        }, 3000); // Cambiar cada 3 segundos
+        }, 3000);
       }
 
       function stopAutoplay() {
-        clearInterval(autoplayInterval);
+        if (autoplayTimer) {
+          console.log('⏸️ Deteniendo autoplay');
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
       }
 
-      function resetAutoplay() {
+      function restartAutoplay() {
         stopAutoplay();
         startAutoplay();
       }
 
-      // Event Listeners
-      prevBtn.addEventListener('click', () => {
+      // Eventos botones
+      prevBtn.onclick = () => {
+        console.log('Click en anterior');
         prevSlide();
-        resetAutoplay();
-      });
+        restartAutoplay();
+      };
 
-      nextBtn.addEventListener('click', () => {
+      nextBtn.onclick = () => {
+        console.log('Click en siguiente');
         nextSlide();
-        resetAutoplay();
-      });
+        restartAutoplay();
+      };
 
-      // Pausar autoplay al hacer hover
-      partnersContainer.addEventListener('mouseenter', stopAutoplay);
-      partnersContainer.addEventListener('mouseleave', startAutoplay);
+      // Hover
+      container.onmouseenter = () => {
+        console.log('Mouse enter - pausando');
+        stopAutoplay();
+      };
+      
+      container.onmouseleave = () => {
+        console.log('Mouse leave - reanudando');
+        startAutoplay();
+      };
 
-      // Soporte para gestos táctiles (swipe)
+      // Touch
       let touchStartX = 0;
-      let touchEndX = 0;
-
-      partnersContainer.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
         stopAutoplay();
       }, { passive: true });
 
-      partnersContainer.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+      container.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+        }
         startAutoplay();
       }, { passive: true });
 
-      function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-
-        if (Math.abs(diff) > swipeThreshold) {
-          if (diff > 0) {
-            nextSlide();
-          } else {
-            prevSlide();
-          }
-        }
-      }
-
-      // Navegación con teclado
-      document.addEventListener('keydown', (e) => {
-        const aliadosSection = document.getElementById('aliados');
-        const rect = aliadosSection.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
-        
-        if (isVisible) {
-          if (e.key === 'ArrowLeft') {
-            prevSlide();
-            resetAutoplay();
-          } else if (e.key === 'ArrowRight') {
-            nextSlide();
-            resetAutoplay();
-          }
-        }
-      });
-
-      // Responsive: actualizar al cambiar tamaño de ventana
-      let resizeTimer;
+      // Resize
       window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          const oldSlidesPerView = slidesPerView;
-          updateSlidesPerView();
-          
-          if (oldSlidesPerView !== slidesPerView) {
-            currentIndex = 0;
-            createDots();
-            updateCarousel();
-          } else {
-            updateCarousel();
-          }
-        }, 250);
+        const max = getMaxSlide();
+        if (currentSlide > max) currentSlide = max;
+        createDots();
+        updateCarousel();
       });
 
-      // Inicializar carrusel
-      updateSlidesPerView();
+      // Inicializar
+      console.log('🚀 Inicializando carrusel...');
       createDots();
       updateCarousel();
       startAutoplay();
+      
+      console.log('✅ Carrusel de aliados COMPLETAMENTE inicializado');
+    }, 500);
 
-      console.log('🎠 Carrusel de aliados inicializado correctamente');
-    } else {
-      console.error('❌ No se encontraron elementos del carrusel');
-    }
-
-    console.log('🎠 Carrusel de aliados inicializado');
-  </script>
+    console.log('🎠 Script de carrusel cargado');
+  </script> -->
+  <script src="carousel.js"></script>
+  
 </body>
 </html>
