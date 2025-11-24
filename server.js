@@ -10,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_cambiala_en_produccion';
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());

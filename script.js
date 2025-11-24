@@ -1,7 +1,7 @@
 // =============================
 //  CONFIGURACIÓN
 // =============================
-const API_URL = 'https://api.render.com/deploy/srv-d4hohfadbo4c73bjptd0?key=pB99WE3NumY';
+const API_URL = 'https://proyecto-institucional.onrender.com';
 
 // =============================
 //  MENÚ MÓVIL
