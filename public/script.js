@@ -1,5 +1,5 @@
 
-    const API_URL = 'http://localhost:3000/api';
+    const API_URL = 'https://proyecto-institucional-2.onrender.com/api';
     let token = localStorage.getItem('adminToken');
 
     // Elementos del DOM

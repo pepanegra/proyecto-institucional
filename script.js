@@ -1,7 +1,7 @@
 // =============================
 //  CONFIGURACIÓN
 // =============================
-const API_URL = 'https://proyecto-institucional.onrender.com/api';
+const API_URL = 'https://proyecto-institucional.onrender-2.com/api';
 
 // =============================
 //  MENÚ MÓVIL
